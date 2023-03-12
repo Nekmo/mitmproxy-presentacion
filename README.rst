@@ -19,7 +19,7 @@ MIT adjunta en este proyecto.
 La presentación está `disponible online <https://nekmo.github.io/mitmproxy-presentacion/>`_ ya compilada
 para su visualización.
 
-Para compilar desde el código fuente se requiere Python 3 instalado, estando probado sólo bajo Python 3.10. Se
+Para compilar desde el código fuente se requiere Python 3 instalado, estando probado sólo bajo Python 3.11. Se
 recomienda ejecutar los siguientes pasos en un
 `virtualenv <https://nekmo.com/es/blog/python-virtualenvs-y-virtualenvwrapper/>`_::
 
