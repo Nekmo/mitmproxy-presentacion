@@ -39,7 +39,9 @@
 .. En plan, como los *hackers* con sus capuchas negras. Aunque aquí hace demasiado calor para ponernosla.
 
 
-.. _sobre-mi
+
+
+.. _sobre-mi:
 
 Sobre mí **Nekmo**
 ------------------

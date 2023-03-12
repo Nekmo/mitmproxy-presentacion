@@ -27,12 +27,12 @@
 
 
 // Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=M+PLUS+1p);
 @import url(https://fonts.googleapis.com/css?family=Lato:300,700);
 @import url(https://fonts.googleapis.com/css?family=Lora:700);
 @import url(https://fonts.googleapis.com/css?family=Creepster);
 @import url(https://fonts.googleapis.com/css?family=Satisfy);
 @import url(https://fonts.googleapis.com/css?family=Nanum+Brush+Script);
-
 @import url(https://fonts.googleapis.com/css2?family=Allura&display=swap);
 
 
@@ -259,24 +259,26 @@ ul li {
 }
 
 #sobre-mi {
-    h3 {
-        width: 40%;
-        font-size: 2.5em;
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 100px;
-        text-align: right;
-        line-height: 0.5em;;
+  h3 {
+    width: 40%;
+    font-size: 2.5em;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 100px;
+    text-align: right;
+    line-height: 0.5em;;
 
-        strong {
-            font-size: 0.3em;
-            color: $linkColor;
-        }
+    strong {
+      font-size: 0.3em;
+      color: $sunshine;
     }
-    table {
-        width: 40%;
-        display: inline-block;
-    }
+
+  }
+  table {
+    width: 40%;
+    display: inline-block;
+  }
+
 }
 
 #python-2-5 {
