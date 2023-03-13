@@ -238,26 +238,6 @@ ul li {
  font-size: 2em;
 }
 
-#marzo-2020 {
-
-  h3 {
-    font-family: "Creepster";
-    font-size: 5em;
-    color: #a51d1d;
-  }
-}
-
-#python-malaga {
-  h3 {
-    color: #50066f;
-
-    strong {
-      color: #005033;
-    }
-
-  }
-}
-
 #sobre-mi {
   h3 {
     width: 40%;
@@ -281,35 +261,28 @@ ul li {
 
 }
 
-#python-2-5 {
-  h3 {
-    font-family: "Satisfy";
-    text-transform: none;
-    font-size: 4em;
 
-    strong {
-      font-family: "Satisfy";
-    }
+
+#que-son {
+  h3 {
+    display: none;
   }
-}
 
-
-#listado-de-cambios {
-  h3 {
-    font-size: 2em;
+  ul {
+    list-style: none;
   }
 
   ul li {
-    line-height: 1em;
 
     p {
-      margin: 5px;
-      font-size: 25px;
+      font-size: 250%;
+      font-weight: bold;
+
+      strong {
+        color:  $sunshine;
+      }
     }
 
-    strong {
-      color: $hotPink;
-    }
   }
 }
 

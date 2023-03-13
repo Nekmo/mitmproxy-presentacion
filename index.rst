@@ -20,7 +20,11 @@
 .. image:: images/mitmproxy_logo.*
   :width: 200
 
-.. Hola a todos.
+
+.. revealjs-notes::
+
+  Hola a todos.
+
 
 
 .. _saludo:
@@ -28,16 +32,22 @@
 👋
 ==
 
-.. Seguramente a muchos os llame la atención todo esto de la seguridad informática...
+.. revealjs-notes::
+
+  Seguramente a muchos os llame la atención todo esto de la seguridad informática...
 
 
 
-
-.. revealjs_break::
+.. revealjs-break::
+    :data-background-color: #030303
     :notitle:
 
-.. En plan, como los *hackers* con sus capuchas negras. Aunque aquí hace demasiado calor para ponernosla.
+.. image:: images/hacker.*
+  :width: 100%
 
+.. revealjs-notes::
+
+  En plan, como los *hackers* con sus capuchas negras. Aunque aquí hace demasiado calor para ponernosla.
 
 
 
@@ -58,89 +68,192 @@ Sobre mí **Nekmo**
 .. revealjs_section::
     :data-transition: concave
 
+.. revealjs-notes::
 
-.. Pero antes dejadme que me presente. Soy Juan José, más conocido en redes como Nekmo, y llevo programando en
-   Python más de media vida.
+  Pero antes dejadme que me presente. Soy Juan José, más conocido en redes como Nekmo, y llevo programando en
+  Python más de media vida.
 
 
-.. _hispasec
 
-.. revealjs_break::
+.. revealjs-break::
     :notitle:
 
-.. Y todo esto de la seguridad no me es desconocido, gracias a que he trabajado casi 5 años en el sector, en una
-   empresa malagueña llamada Hispasec.
+.. image:: images/hispasec.*
+  :width: 100%
+
+
+.. revealjs-notes::
+
+  Y todo esto de la seguridad no me es desconocido, gracias a que he trabajado casi 5 años en el sector, en una
+  empresa malagueña llamada Hispasec.
 
 
 
-mitmproxy
----------
-
-.. Eso me ha permitido conocer herramientas como mitmproxy, utilizadas para realizar ataques mitm mediante un proxy.
-   Pero antes de eso...
-
-
-.. revealjs_section::
-    :data-transition: concave
-
-.. ¿Cuántos sabríais explicar qué es un proxy? ¿Y un ataque Man in the Middle? -- No os preocupéis, que vamos a verlos
-   en detalle.
-
-
-
-¿Qué son los proxies?
-=====================
-
-.. Lo primero, ¿qué son los proxies?
-
-
-.. revealjs_break::
+.. revealjs-break::
     :notitle:
 
-.. Un servidor proxy es un dispositivo que hace de intermediario en las peticiones realizadas entre un cliente y un
-   servidor.
+.. image:: images/mitmproxy_full.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Eso me ha permitido conocer herramientas como mitmproxy, utilizadas para realizar ataques mitm mediante un proxy.
+  Pero antes de eso...
 
 
-.. revealjs_break::
+Qué son
+-------
+
+.. revealjs-fragments::
+
+   * ¿Qué es un **proxy**?
+   * ¿Y un ataque **Man in the Middle**?
+
+.. revealjs-notes::
+
+  ¿Cuántos sabríais explicar qué es un proxy? ¿Y un ataque Man in the Middle? -- No os preocupéis, que vamos a verlos
+  en detalle.
+
+
+
+¿Qué son los **proxies**?
+=========================
+
+.. revealjs-notes::
+
+  Lo primero, ¿qué son los proxies?
+
+
+
+.. revealjs-break::
     :notitle:
 
-.. A muchos os sonarán porque se utilizan para saltarse restricciones regionales. Vamos, ver el Netflix de otro país.
+.. image:: images/proxy.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Un servidor proxy es un dispositivo que hace de intermediario en las peticiones realizadas entre un cliente y un
+  servidor.
 
 
-.. revealjs_break::
+
+.. revealjs-break::
     :notitle:
 
-.. Así pues, el proxy toma una solicitud de un usuario, se la envía al servidor destino, y se lo entrega al usuario.
+.. image:: images/world-proxies.*
+  :width: 80%
+
+.. revealjs-notes::
+
+  A muchos os sonarán porque se utilizan para saltarse restricciones regionales. Vamos, ver el Netflix de otro país.
 
 
-.. revealjs_break::
+
+.. revealjs-break::
+    :data-transition: fade
     :notitle:
 
-.. Y puede que estéis pensando... ¿No puede ese servidor leer la solicitud? ¿No podría alterarla?
+.. image:: images/proxy2.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Así pues, el proxy toma una solicitud de un usuario...
+
+
+
+.. revealjs-break::
+    :data-transition: fade
+    :notitle:
+
+.. image:: images/proxy3.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  ... se la envía al servidor destino...
+
+
+
+.. revealjs-break::
+    :data-transition: fade
+    :notitle:
+
+.. image:: images/proxy4.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  ...éste le da la respuesta al proxy...
+
+
+
+.. revealjs-break::
+    :data-transition: fade slide-out
+    :notitle:
+
+.. image:: images/proxy5.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  ...y se lo entrega al usuario.
+
+
+
+.. revealjs-break::
+    :notitle:
+    :data-background-color: #000000
+    :data-background-image: _static/thinking.gif
+
+.. revealjs-notes::
+
+  Y puede que estéis pensando... ¿No puede ese servidor leer la solicitud? ¿No podría alterarla? ...
+
+
+.. revealjs-break::
+    :notitle:
+    :data-background-color: #000000
+    :data-background-image: _static/dicaprio.gif
+
+.. revealjs-notes::
+
+  Pues muy bien, eso que estáis pensando exactamente es un
 
 
 Ataques Man in the Middle **(MitM)**
 ====================================
 
-.. Pues muy bien, un ataque Man in the Middle, consiste justamente en eso.
+.. revealjs-notes::
+
+  un ataque Man in the Middle,.
 
 
-.. revealjs_break::
+
+.. revealjs-break::
     :notitle:
 
-.. Un ataque man in the middle, traducido como ataque de intermedario, es aquel en que un agente externo, el atacante,
-   se encuentra de por medio en la comunicación.
+.. image:: images/mitm.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Un ataque man in the middle, traducido como ataque de intermedario, es aquel en que un agente externo, el atacante,
+  se encuentra de por medio en la comunicación.
 
 
-.. revealjs_break::
+.. revealjs-break::
     :notitle:
 
 * Leer
 * Añadir
 * Modificar
 
-.. Y puede leer, añadir o modificar a voluntad. Los proxies son sólo una de las técnicas que tienen los atacantes para
-   realizar un ataque MitM.
+.. revealjs-notes::
+
+  Y puede leer, añadir o modificar a voluntad. Los proxies son sólo una de las técnicas que tienen los atacantes para
+  realizar un ataque MitM.
 
 
 mitmproxy
@@ -331,7 +444,7 @@ Demo: interceptar código WiFi
 
 .. Además de la presentación, por si queréis volver a verla.
 
-.. revealjs_break::
+.. revealjs-break::
     :data-background-color: #ffffff
     :data-background-size: contain
     :data-background-image: _static/qr.png
