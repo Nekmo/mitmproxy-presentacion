@@ -61,7 +61,7 @@ Sobre mí **Nekmo**
 | .. image:: images/cara.svg         |
 |   :width: 200px                    |
 |                                    |
-| *Programando en Python desde 2006* |
+| *Programador Python*               |
 |                                    |
 +------------------------------------+
 
@@ -175,7 +175,6 @@ Qué son
   ... se la envía al servidor destino...
 
 
-
 .. revealjs-break::
     :data-transition: fade
     :notitle:
@@ -209,7 +208,7 @@ Qué son
 
 .. revealjs-notes::
 
-  Y puede que estéis pensando... ¿No puede ese servidor leer la solicitud? ¿No podría alterarla? ...
+  Y puede que estéis pensando... ¿No puede ese servidor leer la solicitud? ¿No podría alterarla...?
 
 
 .. revealjs-break::
@@ -219,7 +218,7 @@ Qué son
 
 .. revealjs-notes::
 
-  Pues muy bien, eso que estáis pensando exactamente es un
+  Pues muy bien, eso que estáis pensando exactamente es un...
 
 
 Ataques Man in the Middle **(MitM)**
@@ -227,7 +226,7 @@ Ataques Man in the Middle **(MitM)**
 
 .. revealjs-notes::
 
-  un ataque Man in the Middle,.
+  ataque Man in the Middle.
 
 
 
@@ -243,12 +242,12 @@ Ataques Man in the Middle **(MitM)**
   se encuentra de por medio en la comunicación.
 
 
-.. revealjs-break::
-    :notitle:
+opciones mitm
+-------------
 
-* Leer
-* Añadir
-* Modificar
+* 👁️ Leer
+* ➕ Añadir
+* ✏️ Modificar
 
 .. revealjs-notes::
 
@@ -256,26 +255,41 @@ Ataques Man in the Middle **(MitM)**
   realizar un ataque MitM.
 
 
-mitmproxy
-=========
+.. revealjs-break::
+    :notitle:
 
-.. Y ahora, sabiendo ambos conceptos, vamos a ver mitmproxy.
+.. image:: images/mitmproxy_full.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Y ahora, sabiendo ambos conceptos, vamos a ver mitmproxy.
 
 
-Versión consola
+Versión **consola**
+-------------------
+
+.. image:: images/mitmproxy_cli.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  mitmproxy tiene una interfaz para ver y modificar las peticiones de nuestra víctima desde la consola.
+
+
+Versión **web**
 ---------------
 
-.. mitmproxy tiene una interfaz para ver y modificar las peticiones de nuestra víctima desde la consola.
+.. image:: images/mitmproxy_web.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Además de una versión web muy resultona, pero que aún se encuentra en beta. *Como todo lo que desarrollo*
 
 
-Versión web
------------
-
-.. Además de una versión web muy resultona, pero que aún se encuentra en beta. *Como todo lo que desarrollo*
-
-
-Python API
-----------
+**Python** API
+--------------
 
 .. code-block:: python
 
@@ -292,39 +306,64 @@ Python API
             )
 
 
-.. Y finalmente una API para escribir en Python y realizar cambios, como modificar el servidor de destino o alterar
-   la respuesta.
+.. revealjs-notes::
+
+  Y finalmente una API para escribir en Python y realizar cambios, como modificar el servidor de destino o alterar la respuesta.
 
 Demo
 ----
 
-.. Pero dejadme que os lo enseñe, si es que funciona la demo, claro.
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-image: _static/demo1.gif
+
+.. revealjs-notes::
+
+  Pero dejadme que os lo enseñe. Si es que funciona la demo, claro.
 
 
-Casos de uso
-============
+Casos de **uso**
+================
 
-.. Vale, y ahora os preguntaréis algunos. ¿Para qué me sirve? Pues no sólo es útil para los malos.
+.. revealjs-section::
+    :data-background-color: #8BB2BE
+
+.. image:: images/cybersecurity.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Vale, y ahora os preguntaréis algunos. ¿Para qué me sirve? Pues no sólo es útil para los malos.
 
 
-Sombrero blanco
----------------
+Sombrero **blanco**
+-------------------
 
-* Depuración de programas
-* Análisis de malware
-* Tests de integración
+* **Depuración** de programas
+* Análisis de **malware**
+* **Tests** de integración
 * ... y más.
 
-.. Los buenos, es decir, los sombreros blanco, además de los desarrolladorfes, pueden usarlo para varias cosas, como
+.. Los buenos, es decir, los sombreros blanco, además de los desarrolladores, pueden usarlo para varias cosas, como
    (leer puntos)
 
 
-Sombrero negro
---------------
+¡Y los malos!
+-------------
 
-* Espionaje
-* Robo de información
-* Phishing
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-image: _static/hacker.gif
+
+Sombrero **negro**
+------------------
+
+.. revealjs-section::
+    :data-background-color: #363636
+
+* **Espionaje**.
+* Robo de **información**.
+* **Phishing**.
 * ... y más.
 
 .. Y los malos, claro está, pueden utilizarlo para hacer cosas de malos.

@@ -35,6 +35,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nanum+Brush+Script);
 @import url(https://fonts.googleapis.com/css2?family=Allura&display=swap);
 
+//@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css);
+
 
 @font-face {
   font-family: 'Vox Regular';
@@ -42,6 +44,14 @@
   font-weight: 300;
   src: url("vox-regular.ttf") format('truetype');
 }
+
+//@font-face {
+//  font-family: 'Font Awesome 6 Free';
+//  font-style: normal;
+//  font-weight: 900;
+//  src: url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/webfonts/fa-solid-900.ttf) format('truetype');
+//}
+
 
 // store colors in variables
 $hotPink: #363636;
@@ -157,6 +167,10 @@ body::before {
 
 .reveal *, .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
   font-family: 'M PLUS 1p', sans-serif;
+
+  .fa-classic, .fa-regular, .fa-solid, .far, .fas {
+    font-family: 'Font Awesome 6 Free';
+  }
 }
 
 
@@ -261,9 +275,7 @@ ul li {
 
 }
 
-
-
-#que-son {
+#que-son, #opciones-mitm {
   h3 {
     display: none;
   }
@@ -282,10 +294,48 @@ ul li {
         color:  $sunshine;
       }
     }
-
   }
 }
 
+#demo, #y-los-malos {
+    h3 {
+        font-weight: bold;
+        font-size: 6em;
+        text-shadow: #000000 1px 0 10px;
+    }
+}
+
+#y-los-malos {
+  h3 {
+    font-size: 4em;
+  }
+}
+
+#sombrero-blanco, #sombrero-negro {
+  h3 strong {
+    color: white;
+    text-shadow: #000000 1px 0 20px;
+  }
+
+  ul li {
+
+    p {
+      font-size: 150%;
+      font-weight: bold;
+
+      strong {
+        color:  $sunshine;
+      }
+    }
+  }
+}
+
+#sombrero-negro {
+    h3 strong {
+    color: #363636;
+    text-shadow: #ffffff 1px 0 20px;
+  }
+}
 
 //#ejemplo-web, #formulario, #devuelve-la-salida, #baterias-incluidas {
 //    // margin-top: -100px;
