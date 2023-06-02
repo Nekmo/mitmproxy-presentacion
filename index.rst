@@ -344,8 +344,9 @@ Sombrero **blanco**
 * **Tests** de integración
 * ... y más.
 
-.. Los buenos, es decir, los sombreros blanco, además de los desarrolladores, pueden usarlo para varias cosas, como
-   (leer puntos)
+.. revealjs-notes::
+
+  Los buenos, es decir, los sombreros blanco, además de los desarrolladores, pueden usarlo para varias cosas, como (leer puntos)
 
 
 ¡Y los malos!
@@ -354,6 +355,10 @@ Sombrero **blanco**
 .. revealjs-section::
     :data-background-color: #000000
     :data-background-image: _static/hacker.gif
+
+.. revealjs-notes::
+
+  ¡Y los malos!
 
 Sombrero **negro**
 ------------------
@@ -366,122 +371,199 @@ Sombrero **negro**
 * **Phishing**.
 * ... y más.
 
-.. Y los malos, claro está, pueden utilizarlo para hacer cosas de malos.
+.. revealjs-notes::
+
+  Y ellos, claro está, también pueden utilizarlo para hacer sus cosas de malos, como (leer puntos).
 
 
 ¿Estoy en peligro?
 ==================
 
-.. Vale, puede esto os haya asustado un poco. Pero no os preocupéis. Contra los ataques Man in the Middle los buenos
-   tenemos una solución.
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-image: _static/panic.gif
+
+.. revealjs-notes::
+
+  Vale, puede esto os haya asustado un poco. Pero no os preocupéis. Contra los ataques Man in the Middle los buenos tenemos una solución.
 
 
-SSL/TLS
--------
+SSL/**TLS**
+-----------
 
-.. SSL/TLS. Por suerte, la mayoría del tráfico web actual está firmado y cifrado. Y esto significa que no pueden
-   un ataque impunemente.
+.. image:: images/certificado-ssl.*
+  :width: 100%
 
+.. revealjs-notes::
 
-Aviso del navegador
--------------------
-
-.. Si el tráfico está siendo interceptado y la web usa SSL/TLS, el navegador muestra una pantalla roja como esta.
-   Tal vez alguna vez os haya salido porque el certificado no es válido.
+  SSL/TLS. Por suerte, la mayoría del tráfico web actual está firmado y cifrado. Y esto significa que no pueden realizar un ataque impunemente.
 
 
-
-¿Qué es el certificado?
+**Aviso** del navegador
 -----------------------
 
-.. Sin entrar en detalles, el certificado, es lo que demuestra que el servidor destino es quien dice ser. Y sólo el
-   servidor destino tiene la clave privada que lo demuestra.
+.. image:: images/ssl-error.*
+  :width: 100%
+
+.. revealjs-notes::
+
+  Si el tráfico está siendo interceptado y la web usa SSL/TLS, el navegador muestra una pantalla de peligro como esta. Tal vez alguna vez os haya salido porque el certificado no es válido.
 
 
-Certificado autofirmado
-------------------------
 
-.. El certificado de mitmproxy, es un certificado autofirmado que valida cualquier servidor. Permite suplantar cualquier
-   sitio.
+¿Qué es el **certificado**?
+---------------------------
+
+.. image:: images/certificate.*
+  :width: 40%
+
+.. revealjs-notes::
+
+  Sin entrar en detalles, el certificado, es lo que demuestra que el servidor destino es quien dice ser. Y sólo el servidor destino tiene la clave privada que lo demuestra.
 
 
-Sin confianza
--------------
+Certificado **autofirmado**
+---------------------------
 
-.. Claro está, ese certificado no es de confianza. Y para que funcione requiere instalarse explícitamente en el equipo
-   o navegador de la víctima. Ya no es tan sencillo...
+.. image:: images/padlock-broken.*
+  :width: 50%
+
+.. revealjs-notes::
+
+  El certificado de mitmproxy, es un certificado autofirmado que valida cualquier servidor. Permite suplantar cualquier sitio.
+
+
+Sin **confianza**
+-----------------
+
+.. image:: images/no_handshake.*
+  :width: 50%
+
+.. revealjs-notes::
+
+  Claro está, ese certificado no es de confianza. Y para que funcione requiere instalarse explícitamente en el equipo o navegador de la víctima. Ya no es tan sencillo para los malos...
 
 
 Demo
 ----
 
-.. Pero de nuevo, vamos a verlo con una demostración.
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-video: _static/demo2.mp4
+    :data-background-video-loop:
+
+.. revealjs-notes::
+
+  Pero de nuevo, vamos a verlo con una demostración.
 
 
-Conclusiones sobre el cifrado
-=============================
+Conclusiones sobre el **cifrado**
+=================================
 
-* mitmproxy puede funcionar con sitios con cifrado SSL/TLS
-* ... Pero debe aceptarse el certificado inválido,
-    * ...o instalarse el certificado autofirmado en la máquina.
+.. revealjs-fragments::
 
-
-.. Por resumir un poco... (LEER).
-
-
-¿Cómo se realiza el ataque entonces?
--------------------------------------
-
-* Engañar a la víctima para que salte la pantalla en rojo.
-* Engañarla para que instale el certificado autofirmado.
-* Tomar posesión del dispositivo e instalar el certificado.
-
-.. ¿Entonces qué prácticas puede realizar el atacante? Muchos ya lo habréis pensado tras estas conclusiones, pero en
-   definitiva... (LEER)
+    * mitmproxy **puede funcionar** con sitios **con cifrado SSL/TLS**.
+    * ... Pero **debe aceptarse** el certificado inválido,
+    * ... **o instalarse** el certificado autofirmado en la máquina.
 
 
-¿Pero quedan sitios sin SSL/TLS?
---------------------------------
+.. revealjs-notes::
 
-https://whynohttps.com/
-
-.. Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLs. Pero muchas webs aún no lo implementan por
-   defecto. Aquí tenéis un listado de sitios inseguros, entre los que destacan algunos tan importantes como baidu, el
-   Google chino. Sí. Creedlo. En la web indicada tenéis el listado.
+  Por resumir un poco... (LEER).
 
 
-Códigos de ejemplo
-==================
+¿**Cómo se realiza** el ataque entonces?
+----------------------------------------
 
-.. ¡Pero ahora, vamos a ver los códigos usados en el ejemplo anterior!
+.. revealjs-fragments::
+
+    * Engañar a la víctima para que salte la **pantalla advertencia**.
+    * Engañarla para que **instale el certificado autofirmado**.
+    * **Tomar posesión** del dispositivo e instalar el certificado.
+
+.. revealjs-notes::
+
+    ¿Entonces qué prácticas puede realizar el atacante? Muchos ya lo habréis pensado tras estas conclusiones, pero en definitiva... (LEER)
 
 
-Demo: interceptar código WiFi
-=============================
+¿Pero quedan sitios sin **SSL/TLS**?
+------------------------------------
 
-.. Y ahora, para terminar, vamos a ver un
+.. revealjs-notes::
+
+   Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLs. Pero muchas webs aún no lo implementan por defecto...
 
 
-¡Muchas gracias!
-================
+Webs sin HTTPS
+--------------
+
+.. image:: images/why_not_https.*
+  :width: 100%
+
+**https://whynohttps.com/**
+
+.. revealjs-notes::
+
+   Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLs. Pero muchas webs aún no lo implementan por defecto. Aquí tenéis un listado de sitios inseguros, entre los que destacan algunos tan importantes como baidu, el Google chino. Sí. Creedlo. En la web indicada tenéis el listado.
+
+
+Códigos de **ejemplo**
+======================
+
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-image: _static/coding.gif
+
+.. revealjs-notes::
+
+  ¡Pero ahora, vamos a ver los códigos usados en el ejemplo anterior!
+
+
+**Demo:** interceptar código WiFi
+=================================
+
+.. revealjs-section::
+    :data-background-color: #000000
+    :data-background-image: _static/demo3.gif
+
+.. revealjs-notes::
+
+   Y ahora, para terminar, vamos a ver un ejemplo en el que vosotros mismos podréis probar mitmproxy con vuestros mismos móviles, usando vuestra conexión WiFi. Vamos a analizar vuestro tráfico HTTP.
+
+Accede a la **demo**
+--------------------
+
+**SSID: mitmproxy**
+
+.. revealjs-section::
+    :data-background-color: #030303
+
+
+¡Muchas **gracias**!
+====================
 
 .. revealjs-fragments::
 
     **Referencias**
 
+    * `mitmproxy.org <https://mitmproxy.org/>`_.
+    * `mitmproxy.org <https://mitmproxy.org/>`_. TODO.
 
-.. Y hasta aquí la presentación. Os agradezco a todos por venir, y aquí os dejo algunas referencias utilizadas en
-   esta presentación.
+.. revealjs-notes::
 
-¿Y la presentación?
--------------------
+   Y hasta aquí la presentación. Os agradezco a todos por venir, y aquí os dejo algunas referencias utilizadas en esta presentación.
+
+¿Y la **presentación**?
+-----------------------
 
 .. revealjs_section::
     :data-transition: zoom
 
 `github:Nekmo/mitmproxy-presentacion <https://github.com/Nekmo/mitmproxy-presentacion>`_
 
-.. Además de la presentación, por si queréis volver a verla.
+.. revealjs-notes::
+
+   Además de la presentación, por si queréis volver a verla.
 
 .. revealjs-break::
     :data-background-color: #ffffff
@@ -489,11 +571,12 @@ Demo: interceptar código WiFi
     :data-background-image: _static/qr.png
     :notitle:
 
+.. revealjs-notes::
 
-.. Además aquí la tenéis en forma de QR por si os es más cómodo, para no tener ni que escribir.
+   Además aquí la tenéis en forma de QR por si os es más cómodo, para no tener ni que escribir.
 
-Contactar
----------
+**Contactar**
+-------------
 
 * **Sitio web:** `nekmo.com <https://nekmo.com>`_
 * **Email:** `contacto@nekmo.com <mailto:contacto@nekmo.com>`_

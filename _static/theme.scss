@@ -275,7 +275,7 @@ ul li {
 
 }
 
-#que-son, #opciones-mitm {
+#que-son, #opciones-mitm, #webs-sin-https {
   h3 {
     display: none;
   }
@@ -297,11 +297,15 @@ ul li {
   }
 }
 
-#demo, #y-los-malos {
-    h3 {
+#demo, #y-los-malos, #estoy-en-peligro, #id2, #demo-interceptar-codigo-wifi {
+    h2, h3 {
         font-weight: bold;
         font-size: 6em;
         text-shadow: #000000 1px 0 10px;
+    }
+
+    h2 {
+      font-size: 4em;
     }
 }
 
@@ -334,6 +338,38 @@ ul li {
     h3 strong {
     color: #363636;
     text-shadow: #ffffff 1px 0 20px;
+  }
+}
+
+#que-es-el-certificado {
+  img {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+  }
+}
+
+#conclusiones-sobre-el-cifrado, #como-se-realiza-el-ataque-entonces {
+    ul li {
+
+    p {
+      font-size: 120%;
+      font-weight: bold;
+
+      strong {
+        color:  $sunshine;
+      }
+    }
+  }
+}
+
+#accede-a-la-demo {
+  p {
+    strong {
+      display: inline-block;
+      background: #363636;
+      padding: 10px 20px;
+      font-size: 3em;
+      margin-top: 100px;
+    }
   }
 }
 
@@ -389,13 +425,38 @@ ul li {
 }
 
 #muchas-gracias {
-  strong {
-    color: $hotPink;
-    font-size: 2em;
+  p {
+    strong {
+      color: $hotPink;
+      font-size: 2em;
+    }
   }
 
+  ul {
+    p {
+      margin: 10px;
+      font-size: 1.5em;
+
+      a {
+        color: $sunshine;
+      }
+    }
+  }
 }
 
+#y-la-presentacion {
+  p {
+    a {
+      font-size: 1.2em;
+    }
+  }
+}
+
+#contactar {
+  strong {
+    color: $sunshine;
+  }
+}
 
 #continuamos, #mas-seguridad, #python-te-necesita {
     h2, h3 {

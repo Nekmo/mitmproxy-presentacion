@@ -488,22 +488,25 @@ ul li {
   width: 40%;
   display: inline-block; }
 
-#que-son h3, #opciones-mitm h3 {
+#que-son h3, #opciones-mitm h3, #webs-sin-https h3 {
   display: none; }
 
-#que-son ul, #opciones-mitm ul {
+#que-son ul, #opciones-mitm ul, #webs-sin-https ul {
   list-style: none; }
 
-#que-son ul li p, #opciones-mitm ul li p {
+#que-son ul li p, #opciones-mitm ul li p, #webs-sin-https ul li p {
   font-size: 250%;
   font-weight: bold; }
-  #que-son ul li p strong, #opciones-mitm ul li p strong {
+  #que-son ul li p strong, #opciones-mitm ul li p strong, #webs-sin-https ul li p strong {
     color: #F15A29; }
 
-#demo h3, #y-los-malos h3 {
+#demo h2, #demo h3, #y-los-malos h2, #y-los-malos h3, #estoy-en-peligro h2, #estoy-en-peligro h3, #id2 h2, #id2 h3, #demo-interceptar-codigo-wifi h2, #demo-interceptar-codigo-wifi h3 {
   font-weight: bold;
   font-size: 6em;
   text-shadow: #000000 1px 0 10px; }
+
+#demo h2, #y-los-malos h2, #estoy-en-peligro h2, #id2 h2, #demo-interceptar-codigo-wifi h2 {
+  font-size: 4em; }
 
 #y-los-malos h3 {
   font-size: 4em; }
@@ -521,6 +524,22 @@ ul li {
 #sombrero-negro h3 strong {
   color: #363636;
   text-shadow: #ffffff 1px 0 20px; }
+
+#que-es-el-certificado img {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
+
+#conclusiones-sobre-el-cifrado ul li p, #como-se-realiza-el-ataque-entonces ul li p {
+  font-size: 120%;
+  font-weight: bold; }
+  #conclusiones-sobre-el-cifrado ul li p strong, #como-se-realiza-el-ataque-entonces ul li p strong {
+    color: #F15A29; }
+
+#accede-a-la-demo p strong {
+  display: inline-block;
+  background: #363636;
+  padding: 10px 20px;
+  font-size: 3em;
+  margin-top: 100px; }
 
 #pep-657-mejoras-en-las-indicaciones-de-error-en-los-tracebacks {
   font-size: 0.8em; }
@@ -546,9 +565,21 @@ ul li {
   color: #363636;
   font-size: 2em; }
 
-#muchas-gracias strong {
+#muchas-gracias p strong {
   color: #363636;
   font-size: 2em; }
+
+#muchas-gracias ul p {
+  margin: 10px;
+  font-size: 1.5em; }
+  #muchas-gracias ul p a {
+    color: #F15A29; }
+
+#y-la-presentacion p a {
+  font-size: 1.2em; }
+
+#contactar strong {
+  color: #F15A29; }
 
 #continuamos h2, #continuamos h3, #mas-seguridad h2, #mas-seguridad h3, #python-te-necesita h2, #python-te-necesita h3 {
   font-weight: bold;
