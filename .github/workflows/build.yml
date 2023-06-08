@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: read-all|write-all
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
@@ -29,7 +30,7 @@ jobs:
       - name: Publish presentation
         run: |
           mv _build /tmp/
-          git config --global user.name 'Python311 Presentacion'
+          git config --global user.name 'mitmproxy Presentacion'
           git config --global user.email 'contacto@nekmo.com'
           git checkout --orphan presentation
           rm -rf * .gitignore .github
