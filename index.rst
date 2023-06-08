@@ -274,7 +274,8 @@ Versión **consola**
 
 .. revealjs-notes::
 
-  mitmproxy tiene una interfaz para ver y modificar las peticiones de nuestra víctima desde la consola.
+  mitmproxy tiene una interfaz para ver y modificar las peticiones de nuestra víctima desde la consola. Lo que a todas
+  las pelis les gusta, una terminal resultona para aparentar ser un *"hacker"*.
 
 
 Versión **web**
@@ -285,13 +286,14 @@ Versión **web**
 
 .. revealjs-notes::
 
-  Además de una versión web muy resultona, pero que aún se encuentra en beta. *Como todo lo que desarrollo*
+  Además de una versión web muy resultona, pero que aún se encuentra en beta. *Vamos, Como todo lo que yo desarrollo*.
 
 
 **Python** API
 --------------
 
-.. code-block:: python
+.. revealjs-code-block:: python
+   :data-line-numbers: 4-6|7-11|1-11
 
     from mitmproxy import http
 
@@ -308,7 +310,10 @@ Versión **web**
 
 .. revealjs-notes::
 
-  Y finalmente una API para escribir en Python y realizar cambios, como modificar el servidor de destino o alterar la respuesta.
+  Y finalmente una API para escribir en Python y realizar cambios, como modificar el servidor de destino o
+  alterar la respuesta. En esta demo tenemos (1) un código que altera el host de destino en función del host solicitado,
+  (2) y otro fragmento que, en función del path, altera la respuesta. (3) Diría algo más, pero la API es tan sencilla
+  como veis.
 
 Demo
 ----
@@ -339,10 +344,12 @@ Casos de **uso**
 Sombrero **blanco**
 -------------------
 
-* **Depuración** de programas
-* Análisis de **malware**
-* **Tests** de integración
-* ... y más.
+.. revealjs-fragments::
+
+    * **Depuración** de programas
+    * Análisis de **malware**
+    * **Tests** de integración
+    * ... y más.
 
 .. revealjs-notes::
 
@@ -366,14 +373,16 @@ Sombrero **negro**
 .. revealjs-section::
     :data-background-color: #363636
 
-* **Espionaje**.
-* Robo de **información**.
-* **Phishing**.
-* ... y más.
+.. revealjs-fragments::
+
+    * **Espionaje**.
+    * Robo de **información**.
+    * **Phishing**.
+    * ... y más.
 
 .. revealjs-notes::
 
-  Y ellos, claro está, también pueden utilizarlo para hacer sus cosas de malos, como (leer puntos).
+  Ellos, claro está, también pueden utilizarlo para hacer sus cosas de malos, como (leer puntos).
 
 
 ¿Estoy en peligro?
@@ -491,7 +500,7 @@ Conclusiones sobre el **cifrado**
 
 .. revealjs-notes::
 
-   Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLs. Pero muchas webs aún no lo implementan por defecto...
+   Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLS. Pero muchas webs aún no lo implementan por defecto...
 
 
 Webs sin HTTPS
@@ -504,10 +513,10 @@ Webs sin HTTPS
 
 .. revealjs-notes::
 
-   Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLs. Pero muchas webs aún no lo implementan por defecto. Aquí tenéis un listado de sitios inseguros, entre los que destacan algunos tan importantes como baidu, el Google chino. Sí. Creedlo. En la web indicada tenéis el listado.
+   Aquí tenéis un listado de sitios inseguros, entre los que destacan algunos tan importantes como baidu, el Google chino. Sí. Creedlo. En la web indicada tenéis el listado.
 
 
-Códigos de **ejemplo**
+Ejemplos de **código**
 ======================
 
 .. revealjs-section::
@@ -516,7 +525,7 @@ Códigos de **ejemplo**
 
 .. revealjs-notes::
 
-  ¡Pero ahora, vamos a ver los códigos usados en el ejemplo anterior!
+  Pero bueno, hemos estado hablando mucho, ¡y enseñando poco código! Vamos a ver los códigos usados en el ejemplo anterior.
 
 
 **Demo:** interceptar código WiFi
@@ -528,7 +537,7 @@ Códigos de **ejemplo**
 
 .. revealjs-notes::
 
-   Y ahora, para terminar, vamos a ver un ejemplo en el que vosotros mismos podréis probar mitmproxy con vuestros mismos móviles, usando vuestra conexión WiFi. Vamos a analizar vuestro tráfico HTTP.
+   Y ahora, para terminar, vamos a ver un ejemplo en el que vosotros mismos podréis probar mitmproxy con vuestros móviles, usando vuestra conexión WiFi. Vamos a analizar vuestro tráfico HTTP de vuestro terminal.
 
 Accede a la **demo**
 --------------------
@@ -537,6 +546,11 @@ Accede a la **demo**
 
 .. revealjs-section::
     :data-background-color: #030303
+
+.. revealjs-notes::
+
+   Para ello, este es el nombre de la red. La contraseña se la daré primero a una única víctima y luego abriré la demo
+   a todos.
 
 
 ¡Muchas **gracias**!
@@ -584,6 +598,9 @@ Accede a la **demo**
 * **Telegram:** `@nekmo <https://t.me/nekmo>`_
 * **Jabber:** `nekmo@nekmo.org <xmpp://nekmo@nekmo.org>`_
 
+.. revealjs-notes::
 
-.. Finalmente, también tenéis mi sitio web (ejem ejem spam) en esta diapositiva. Además de mi email. Y Twitter.
-   Aunque apenas escriba en Twitter. Y ante todo, ¡muchas gracias a todos! ¿Alguna pregunta?
+   Finalmente, también tenéis mi sitio web (ejem ejem spam) en esta diapositiva. Además de mi email. Y Twitter.
+   Aunque apenas escriba en Twitter. Me podéis escribir ya sea por preguntas sobre Python, seguridad informática,
+   contrataciones o lo que necesitéis. Mi correo está abierto. Pero ante todo, ¡muchas gracias a todos por venir!
+   ¿Alguna pregunta?
