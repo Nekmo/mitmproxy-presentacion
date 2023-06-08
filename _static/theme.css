@@ -488,16 +488,16 @@ ul li {
   width: 40%;
   display: inline-block; }
 
-#que-son h3, #opciones-mitm h3, #webs-sin-https h3 {
+#que-son h3, #opciones-mitm h3, #webs-sin-https h3, #como-funciona-rpi h3 {
   display: none; }
 
-#que-son ul, #opciones-mitm ul, #webs-sin-https ul {
+#que-son ul, #opciones-mitm ul, #webs-sin-https ul, #como-funciona-rpi ul {
   list-style: none; }
 
-#que-son ul li p, #opciones-mitm ul li p, #webs-sin-https ul li p {
+#que-son ul li p, #opciones-mitm ul li p, #webs-sin-https ul li p, #como-funciona-rpi ul li p {
   font-size: 250%;
   font-weight: bold; }
-  #que-son ul li p strong, #opciones-mitm ul li p strong, #webs-sin-https ul li p strong {
+  #que-son ul li p strong, #opciones-mitm ul li p strong, #webs-sin-https ul li p strong, #como-funciona-rpi ul li p strong {
     color: #F15A29; }
 
 #demo h2, #demo h3, #y-los-malos h2, #y-los-malos h3, #estoy-en-peligro h2, #estoy-en-peligro h3, #id2 h2, #id2 h3, #demo-interceptar-codigo-wifi h2, #demo-interceptar-codigo-wifi h3 {
@@ -528,10 +528,10 @@ ul li {
 #que-es-el-certificado img {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
 
-#conclusiones-sobre-el-cifrado ul li p, #como-se-realiza-el-ataque-entonces ul li p {
+#conclusiones-sobre-el-cifrado ul li p, #como-se-realiza-el-ataque-entonces ul li p, #componentes-clave ul li p {
   font-size: 120%;
   font-weight: bold; }
-  #conclusiones-sobre-el-cifrado ul li p strong, #como-se-realiza-el-ataque-entonces ul li p strong {
+  #conclusiones-sobre-el-cifrado ul li p strong, #como-se-realiza-el-ataque-entonces ul li p strong, #componentes-clave ul li p strong {
     color: #F15A29; }
 
 #accede-a-la-demo p strong {

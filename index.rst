@@ -293,7 +293,7 @@ Versión **web**
 --------------
 
 .. revealjs-code-block:: python
-   :data-line-numbers: 4-6|7-11|1-11
+   :data-line-numbers: 1-11|4-6|7-11|1-11
 
     from mitmproxy import http
 
@@ -527,6 +527,60 @@ Ejemplos de **código**
 
   Pero bueno, hemos estado hablando mucho, ¡y enseñando poco código! Vamos a ver los códigos usados en el ejemplo anterior.
 
+Caso **1**
+----------
+
+.. revealjs-code-block:: python
+   :data-line-numbers: 1-11|5|6|7-9|9-10
+
+    from mitmproxy import http
+    from bs4 import BeautifulSoup
+
+
+    def response(flow: http.HTTPFlow):
+        if "php" in flow.request.query:
+            text = flow.response.text
+            soup = BeautifulSoup(text, "html.parser")
+            for element in soup.find_all(re.compile(".+"), text=True):
+                element.string = re.sub(r"\w+", "PHP", element.string)
+            flow.response.text = str(soup)
+
+.. revealjs-notes::
+
+   Bueno, vamos a ver cómo funciona este ejemplo de código, el cual os sorprenderá por lo corto que es. (1) Lo primero
+   estamos trabajando con la respuesta, por lo que usamos la función response. (2) Sólo aplicamos la transformación si
+   en los parámetros GET de la petición se encuentra "php". (3) Obtenemos la respuesta y la leemos con Beautifulsoup.
+   (4) por cada elemento con texto, reemplazamos cada palabra por PHP. (5) y finalmente escribimos el contenido alterado
+   en la respuesta.
+
+Caso **2**
+----------
+
+.. revealjs-code-block:: python
+   :data-line-numbers: 1-15|6|7-15|8|9-13|14|1-15
+
+    import re
+    from mitmproxy import http
+    from bs4 import BeautifulSoup
+
+
+    def request(flow: http.HTTPFlow):
+        flow.response = http.Response.make(
+            200,  # (optional) status code
+            b'<style>'
+            b'h1 { animation: blinker 1s step-start infinite; color: red; font-size: 8em; text-align: center; }'
+            b'@keyframes blinker { 50% { opacity: 0; } }'
+            b'</style>'
+            b'<h1>VIVA PHP!!!1</h1>',
+            {"Content-Type": "text/html"},  # (optional) headers
+        )
+
+.. revealjs-notes::
+
+   Este ejemplo es mucho más sencillo aunque sea más largo. (1) Lo aplicamos sólo para la petición, por eso usamos la
+   función request. (2) Creamos una respuesta personalizada y la establecemos. (3) En esta respuesta ponemos como código
+   200. (4) Ponemos este HTML como contenido. (5) definimos como cabecera Content-Type html.
+
 
 **Demo:** interceptar código WiFi
 =================================
@@ -542,7 +596,7 @@ Ejemplos de **código**
 Accede a la **demo**
 --------------------
 
-**SSID: mitmproxy**
+**SSID: mitmdemo**
 
 .. revealjs-section::
     :data-background-color: #030303
@@ -552,6 +606,44 @@ Accede a la **demo**
    Para ello, este es el nombre de la red. La contraseña se la daré primero a una única víctima y luego abriré la demo
    a todos.
 
+Cómo **funciona**
+-----------------
+
+.. image:: images/rpi1.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+   Vale, ahora os preguntaréis cómo funciona. Para ello tenemos este diagrama que (leer). El asterisco que podéis ver
+   en raspberry PI 3, es porque ahora explicaremos en detalle cómo funciona por dentro.
+
+Cómo funciona RPI
+-----------------
+
+.. image:: images/rpi2.drawio.*
+  :width: 100%
+
+.. revealjs-notes::
+
+   Dentro de la Raspberry PI 3 tenemos las siguientes partes (leer).
+
+
+Componentes **clave**
+---------------------
+
+.. revealjs-fragments::
+
+    * **dhcpcd:** cliente DHCP del adaptador Wifi para Internet.
+    * **isc-dhcp-server:** servidor DHCP del adaptador Wifi para la víctima.
+    * **hostapd:** permite crear la red Access Point para víctimas.
+    * **iptables:** enrutamiento entre el adaptador wifi y mitmproxy.
+    * **mitmproxy:** escucha de las peticiones de la víctima.
+
+.. revealjs-notes::
+
+   Vale, como sé que son muchas cosas, resumiré los componentes clave utilizados. Tenemos... (leer).
+
+
 
 ¡Muchas **gracias**!
 ====================
@@ -560,8 +652,9 @@ Accede a la **demo**
 
     **Referencias**
 
-    * `mitmproxy.org <https://mitmproxy.org/>`_.
-    * `mitmproxy.org <https://mitmproxy.org/>`_. TODO.
+    * `sitio web mitmproxy.org <https://mitmproxy.org/>`_.
+    * `ejemplos de código mitmproxy.org <https://docs.mitmproxy.org/stable/addons-examples/>`_.
+    * `blog dinofizzotti.com (demo RPI) <https://www.dinofizzotti.com/blog/2022-04-24-running-a-man-in-the-middle-proxy-on-a-raspberry-pi-4/>`_.
 
 .. revealjs-notes::
 
