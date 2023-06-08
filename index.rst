@@ -540,7 +540,7 @@ Caso **1**
     :data-transition: convex
 
 .. revealjs-code-block:: python
-   :data-line-numbers: 1-11|5|6|7-9|9-10
+   :data-line-numbers: 1-11|5|6|7-9|9-10|11
 
     from mitmproxy import http
     from bs4 import BeautifulSoup
