@@ -3,7 +3,7 @@
 
 |
 
-.. image:: https://img.shields.io/github/workflow/status/Nekmo/mitmproxy-presentacion/Build.svg?style=flat-square&maxAge=2592000
+.. image:: https://img.shields.io/github/actions/workflow/status/Nekmo/mitmproxy-presentacion/build.yml?style=flat-square&maxAge=2592000&branch=master
   :target: https://github.com/Nekmo/mitmproxy-presentacion/actions?query=workflow%3ABuild
   :alt: Latest CI build status
 
