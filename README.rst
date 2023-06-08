@@ -12,9 +12,9 @@
 mitmproxy: ataques MitM con Python
 ==================================
 
-Presentación para `Python Málaga <https://www.meetup.com/es-ES/python_malaga/>`_ el día *TBA*. Puedes
-utilizar esta misma presentación, íntegra o con modificaciones para cualquiera de los usos descritos en la licencia
-MIT adjunta en este proyecto.
+Presentación para `OpenSouthCode 2023 <https://www.opensouthcode.org/conferences/opensouthcode2023>`_ el día
+*9 de junio*. Puedes utilizar esta misma presentación, íntegra o con modificaciones para cualquiera de los usos
+descritos en la licencia MIT adjunta en este proyecto.
 
 La presentación está `disponible online <https://nekmo.github.io/mitmproxy-presentacion/>`_ ya compilada
 para su visualización.
@@ -35,6 +35,10 @@ recomienda ejecutar los siguientes pasos en un
 
 Tras la compilación puede verse los ficheros resultantes en el directorio ``_build``.
 
+Demo
+====
+Los ficheros de demostración se encuentran en el directorio
+`demos <https://github.com/Nekmo/mitmproxy-presentacion/tree/master/demos>`_.
 
 Copyright
 =========
