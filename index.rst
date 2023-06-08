@@ -13,7 +13,7 @@
 **mitmproxy:** ataques MitM con Python
 ======================================
 
-.. revealjs_section::
+.. revealjs-section::
     :data-transition: zoom
 
 
@@ -31,6 +31,9 @@
 
 👋
 ==
+
+.. revealjs-section::
+    :data-transition: convex
 
 .. revealjs-notes::
 
@@ -65,7 +68,7 @@ Sobre mí **Nekmo**
 |                                    |
 +------------------------------------+
 
-.. revealjs_section::
+.. revealjs-section::
     :data-transition: concave
 
 .. revealjs-notes::
@@ -77,6 +80,9 @@ Sobre mí **Nekmo**
 
 .. revealjs-break::
     :notitle:
+
+.. revealjs-section::
+    :data-transition: fade
 
 .. image:: images/hispasec.*
   :width: 100%
@@ -530,6 +536,9 @@ Ejemplos de **código**
 Caso **1**
 ----------
 
+.. revealjs-section::
+    :data-transition: convex
+
 .. revealjs-code-block:: python
    :data-line-numbers: 1-11|5|6|7-9|9-10
 
@@ -586,6 +595,7 @@ Caso **2**
 =================================
 
 .. revealjs-section::
+    :data-transition: fade
     :data-background-color: #000000
     :data-background-image: _static/demo3.gif
 
@@ -620,6 +630,9 @@ Cómo **funciona**
 Cómo funciona RPI
 -----------------
 
+.. revealjs-section::
+    :data-transition: convex
+
 .. image:: images/rpi2.drawio.*
   :width: 100%
 
@@ -643,7 +656,19 @@ Componentes **clave**
 
    Vale, como sé que son muchas cosas, resumiré los componentes clave utilizados. Tenemos... (leer).
 
+Código **demos**
+================
 
+.. revealjs-section::
+    :data-transition: fade
+
+.. image:: images/demo_codes.*
+  :width: 100%
+
+.. revealjs-notes::
+
+   Si os interesa montar también vosotros una Raspberry PI como esta o cualquiera de las demos, tenéis el código e
+   instrucciones en la presentación de Github.
 
 ¡Muchas **gracias**!
 ====================
@@ -663,7 +688,7 @@ Componentes **clave**
 ¿Y la **presentación**?
 -----------------------
 
-.. revealjs_section::
+.. revealjs-section::
     :data-transition: zoom
 
 `github:Nekmo/mitmproxy-presentacion <https://github.com/Nekmo/mitmproxy-presentacion>`_
