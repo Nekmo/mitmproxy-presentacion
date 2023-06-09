@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>Demo4</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="../../_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme.css" />
+    <script src="../../_static/main.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <section  id="demo4">
+<h1>Demo4</h1>
+<p>En esta otra demo se utiliza una Raspberry PI 3 (otros modelos pueden estar soportados) para conectar los dispositivos
+de los usuarios para realizar una ataque mitm a los mismos.</p>
+<p>Esta misma documentación se encuentra basada en: <a class="reference external" href="https://www.dinofizzotti.com/blog/2022-04-24-running-a-man-in-the-middle-proxy-on-a-raspberry-pi-4/">https://www.dinofizzotti.com/blog/2022-04-24-running-a-man-in-the-middle-proxy-on-a-raspberry-pi-4/</a>
+Ten en cuenta que según tu entorno, los cambios de la distribución y otros factores, tendrás que realizar cambios a lo
+que se encuentra en esta documentación.</p>
+</section>
+<section  id="requisitos">
+<h2>Requisitos</h2>
+<p>Se necesitan los siguientes elementos para realizar esta demo:</p>
+<ul class="simple">
+<li><p>Una <strong>Raspberry PI</strong>. Se recomienda modelo 3B+ o superior.</p></li>
+<li><p><strong>Alimentador de corriente</strong>. Se recomienda oficial para evitar inestabilidad y corrupción de la tarjeta.</p></li>
+<li><p>Tarjeta <strong>microSD</strong> para el sistema operativo con <strong>raspbian</strong> a la última versión.</p></li>
+<li><p><strong>Adaptador Wifi</strong> USB adicional. No se requiere que tenga modo AP, pero mejor si lo tiene (si se quiere utilizar
+en lugar del incorporado para la víctima).</p></li>
+</ul>
+<p>Aunque no es imprescindible, se recomienda:</p>
+<ul class="simple">
+<li><p><strong>Conexión alámbrica</strong> a través de cable RJ45 para la configuración. La conexión puede realizarse usando ssh.</p></li>
+<li><p><strong>Conexión a monitor</strong> a través de cable HDMI, para la depuración.</p></li>
+<li><p><strong>Teclado</strong> para interactuar por si fuese necesario.</p></li>
+</ul>
+</section>
+<section  id="preparacion-del-sistema">
+<h2>Preparación del sistema</h2>
+<p>Lo primero es actualizar el sistema e instalar los paquetes requeridos.</p>
+<pre data-id="preparacion-del-sistema"><code data-trim data-noescape class="bash">~ # apt update
+~ # apt upgrade</code></pre>
+<p>Tras actualizar, se recomienda reiniciar el sistema. Después instalar los paquetes necesarios:</p>
+<pre data-id="preparacion-del-sistema"><code data-trim data-noescape class="bash">~ # apt install dhcpcd isc-dhcp-server hostapd iptables python3-pip python3-venv</code></pre>
+<p>Ten en cuenta que según el <em>adaptador wifi</em> que utilices necesitarás también instalar paquetes adicionales. En mi caso
+con Realtek:</p>
+<pre data-id="preparacion-del-sistema"><code data-trim data-noescape class="bash">~ # apt install firmware-realtek</code></pre>
+<p>Entre los paquetes instalados encontramos:</p>
+<ul class="simple">
+<li><p><strong>dhcpcd:</strong> será el cliente DHCP que usará el adaptador wifi que dará Internet a nuestra RPI.</p></li>
+<li><p><strong>isc-dhcp-server:</strong> servidor DHCP que usará el adaptador wifi al que se conectará la víctima.</p></li>
+<li><p><strong>hostapd:</strong> permite crear la red Access Point de las víctimas y su autenticación.</p></li>
+<li><p><strong>iptables:</strong> permite el enrutamiento para que el adaptador wifi de la víctima pase por mitmproxy.</p></li>
+<li><p><strong>python3-pip:</strong> instalador de paquetes de Python. Lo necesitaremos para instalar <em>mitmproxy</em>.</p></li>
+<li><p><strong>python3-venv:</strong> creador de entornos virtuales de Python. Lo necesitaremos para crear el entorno de <em>mitmproxy</em>.</p></li>
+</ul>
+</section>
+<section  id="establecer-conectores-inalambricos">
+<h2>Establecer conectores inalámbricos</h2>
+<p>Aunque es opcional, recomiendo definir los nombres de los identificadores wifi, ya que podrían intercambiarse los
+nombres. Podemos ver estos usando:</p>
+<pre data-id="establecer-conectores-inalambricos"><code data-trim data-noescape class="bash"></code></pre>
+<dl>
+<dt>~ # ip a</dt><dd><dl>
+<dt>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</dt><dd><p>link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo</p>
+<blockquote>
+<div><p>valid_lft forever preferred_lft forever</p>
+</div></blockquote>
+<dl class="simple">
+<dt>inet6 ::1/128 scope host</dt><dd><p>valid_lft forever preferred_lft forever</p>
+</dd>
+</dl>
+</dd>
+<dt>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</dt><dd><p>link/ether b8:27:eb:11:22:33 brd ff:ff:ff:ff:ff:ff
+inet 192.168.88.101/24 brd 192.168.88.255 scope global dynamic noprefixroute eth0</p>
+<blockquote>
+<div><p>valid_lft 506sec preferred_lft 431sec</p>
+</div></blockquote>
+<dl class="simple">
+<dt>inet6 fe80::d629:bb3d:1122:3344/64 scope link</dt><dd><p>valid_lft forever preferred_lft forever</p>
+</dd>
+</dl>
+</dd>
+<dt>3: wlan1: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000</dt><dd><p>link/ether 00:f5:05:11:22:33 brd ff:ff:ff:ff:ff:ff</p>
+</dd>
+<dt>4: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</dt><dd><p>link/ether b8:27:eb:11:22:33 brd ff:ff:ff:ff:ff:ff
+inet 192.168.42.1/24 brd 192.168.42.255 scope global noprefixroute wlan0</p>
+<blockquote>
+<div><p>valid_lft forever preferred_lft forever</p>
+</div></blockquote>
+<dl class="simple">
+<dt>inet6 fe80::f415:7aac:1122:3344/64 scope link</dt><dd><p>valid_lft forever preferred_lft forever</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Para establecerlos creamos el fichero <code class="docutils literal notranslate"><span class="pre">/etc/udev/rules.d/10-network.rules</span></code> y los definimos:</p>
+<pre data-id="establecer-conectores-inalambricos"><code data-trim data-noescape class="default"># /etc/udev/rules.d/10-network.rules
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;b8:27:eb:11:22:33&quot;, NAME=&quot;wlan0&quot;
+SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, ATTR{address}==&quot;00:f5:05:11:22:33&quot;, NAME=&quot;wlan1&quot;</code></pre>
+<p>Si hace falta reiniciaremos nuestra RPI para que los identificadores tengan los nombres correctos.</p>
+</section>
+<section  id="configuracion-de-red-internet">
+<h2>Configuración de red Internet</h2>
+<p>Lo primero es conseguir Internet en nuestra RPI a través de la red inalámbrica que hayamos escogido que hará esta
+función. En mi caso, será el adaptador inalámbrico USB, identificado como <em>wlan1</em>. Para ello creamos el fichero
+<code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces.d/wlan1</span></code>, dejando que el sistema (<code class="docutils literal notranslate"><span class="pre">network.service</span></code>) lo configure por nosotros:</p>
+<pre data-id="configuracion-de-red-internet"><code data-trim data-noescape class="default"># /etc/network/interfaces.d/wlan1
+allow-hotplug wlan1
+iface wlan1 inet dhcp
+        wpa-ssid &lt;ssid móvil que nos proporciona Internet&gt;
+        wpa-psk &lt;clave móvil que nos proporciona Internet&gt;</code></pre>
+</section>
+<section  id="configuracion-de-red-atacante">
+<h2>Configuración de red atacante</h2>
+<p>Este es el paso más complicado. Configuraremos la red del atacante, para lo cual tendremos que crear una red, poniendo
+nuestro Wifi como un Access Point (AP). También necesitamos un servidor DHCP que dé dirección a nuestras víctimas.</p>
+<p>Lo primero configuraremos la red. Para ello copiamos el fichero de ejemplo de <em>hostapd</em> y lo modificaremos:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="bash">~ # cp /usr/share/doc/hostapd/examples/hostapd.conf /etc/hostapd/
+~ # nano /etc/hostapd/hostapd.conf</code></pre>
+<p>En el fichero descomentaremos las líneas que necesitemos para dejar los siguientes valores:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default">interface=wlan0
+driver=nl80211
+ssid=&lt;nombre de nuestra red atacante&gt;
+country_code=ES
+hw_mode=g
+channel=6
+macaddr_acl=0
+auth_algs=1
+wmm_enabled=0
+wpa=2
+wpa_passphrase=&lt;clave de nuestra red atacante&gt;
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP</code></pre>
+<p>Ahora modificaremos el fichero <code class="docutils literal notranslate"><span class="pre">/etc/default/hostapd</span></code> para establecer el fichero de configuración que debe usar:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default"># /etc/default/hostapd
+DAEMON_CONF=&quot;/etc/hostapd/hostapd.conf&quot;</code></pre>
+<p>El servicio <em>hostapd</em> no inicia por defecto porque está enmascarado. Deberemos quitarle la máscara y activarlo:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="bash">~ # systemctl unmask hostapd.service
+~ # systemctl enable hostapd.service</code></pre>
+<p>Ahora configuraremos el servidor dhcp. Para ello modificamos el fichero <code class="docutils literal notranslate"><span class="pre">/etc/dhcp/dhcpd.conf</span></code> y descomentaremos la
+línea que dice <code class="docutils literal notranslate"><span class="pre">authoritative</span></code>:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default"># /etc/dhcp/dhcpd.conf
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+authoritative;</code></pre>
+<p>Después añadiremos justo después la configuración de la red:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default"># /etc/dhcp/dhcpd.conf
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+authoritative;
+
+subnet 192.168.42.0 netmask 255.255.255.0 {
+        range 192.168.42.10 192.168.42.250;
+        option broadcast-address 192.168.42.255;
+        option routers 192.168.42.1;
+        option domain-name &quot;local&quot;;
+        option domain-name-servers 8.8.8.8, 8.8.4.4;
+}</code></pre>
+<p>Tras guardar, cambiamos la interfaz en la que trabajará el servidor DHCP, comentando la interfaz IPv6, editando el
+fichero <code class="docutils literal notranslate"><span class="pre">/etc/default/isc-dhcp-server</span></code>:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default"># /etc/default/isc-dhcp-server
+INTERFACESv4=&quot;wlan0&quot;
+#INTERFACESv6=&quot;&quot;</code></pre>
+<p>En mi caso, ha sido necesario forzar que reintente el inicio del servicio en caso de error, ya que durante el arranque
+del sistema cuando se inicia este servicio aún no está disponible la interfaz de red. Para ello editamos el servicio:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="bash">systemctl edit isc-dhcp-server</code></pre>
+<p>Y ponemos en el nuevo fichero:</p>
+<pre data-id="configuracion-de-red-atacante"><code data-trim data-noescape class="default">[Service]
+# Type=forking
+Restart=always</code></pre>
+</section>
+<section  id="mitmproxy">
+<h2>Mitmproxy</h2>
+<p>Para utilizar mitmproxy no utilizaremos <em>root</em>, ya que se considera inseguro. Para ello crearemos un nuevo usuario:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ # adduser pi</code></pre>
+<p>Tras configurarlo, accedemos al mismo y a su directorio de trabajo:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ # su pi
+~ $ cd</code></pre>
+<p>Ahora, creamos un <em>virtualenv</em> para <strong>mitmproxy</strong> llamado <em>env</em> y lo instalamos en el mismo.</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ $ python3 -m venv env
+~ $ ~/env/bin/pip install mitmproxy</code></pre>
+<p>Ahora volvemos al usuario <em>root</em>, ya sea escribiendo <em>exit</em> (y pulsando enter) en la terminal o pulsando <em>Ctrl+D</em>.
+Crearemos el script que iniciará <em>mitmproxy</em> en <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/start_mitmweb.sh</span></code>:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ # nano /usr/local/bin/start_mitmweb.sh</code></pre>
+<p>Pondremos como contenido:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="default">#!/bin/bash
+/home/pi/env/bin/mitmweb --mode transparent --web-port 9090 --web-host 0.0.0.0</code></pre>
+<p>Daremos permisos de ejecución al fichero usando:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ # chmod +x /usr/local/bin/start_mitmweb.sh</code></pre>
+<p>Crearemos el servicio de systemd que iniciará este script en <code class="docutils literal notranslate"><span class="pre">/etc/systemd/system/mitmweb.service</span></code>:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="default"># /etc/systemd/system/mitmweb.service
+
+[Unit]
+Description=mitmweb service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/local/bin/start_mitmweb.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<p>Ahora lo habilitamos para que se inicie con el sistema:</p>
+<pre data-id="mitmproxy"><code data-trim data-noescape class="bash">~ # systemctl enable mitmweb.service</code></pre>
+</section>
+<section  id="iptables">
+<h2>Iptables</h2>
+<p>Podemos utilizar <code class="docutils literal notranslate"><span class="pre">iptables-save</span></code> y <code class="docutils literal notranslate"><span class="pre">iptables-restore</span></code> para guardar y restaurar las reglas, pero en mi caso por
+sencillez he preferido crear un servicio de systemd que las añada cada vez, ya que así puedo editarlas más fácilmente.
+Para ello crearemos el script que añadirá las reglas en <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/mitmproxy-iptables.sh</span></code>:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="bash">~ # nano /usr/local/bin/mitmproxy-iptables.sh</code></pre>
+<p>Pondremos como contenido:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="default">#!/usr/bin/env bash
+iptables -A FORWARD -i wlan1 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+iptables -t nat -A PREROUTING -i wlan0 -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080
+iptables -t nat -A PREROUTING -i wlan0 -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8080</code></pre>
+<p>Estas reglas se encargan de enrutar el tráfico de <em>wlan0</em> a través de los puertos de <em>mitmproxy</em>. Después añadimos
+permisos de ejecución al script:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="bash">~ # chmod +x /usr/local/bin/mitmproxy-iptables.sh</code></pre>
+<p>Crearemos el servicio de systemd que iniciará este script en <code class="docutils literal notranslate"><span class="pre">/etc/systemd/system/mitmproxy-iptables.service</span></code>:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="default"># /etc/systemd/system/mitmproxy-iptables.service
+
+[Unit]
+Description=mitmproxy iptables service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/mitmproxy-iptables.sh
+Restart=no
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<p>Ahora lo habilitamos para que se inicie con el sistema:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="bash">~ # systemctl enable mitmproxy-iptables.service</code></pre>
+<p>Por defecto nuestro sistema no permite redirigir el tráfico de una IP a otra, por lo que tendremos que habilitarlo en
+el fichero <code class="docutils literal notranslate"><span class="pre">/etc/sysctl.conf</span></code>:</p>
+<pre data-id="iptables"><code data-trim data-noescape class="default"># /etc/sysctl.conf
+# Descomentar la siguiente línea para activar la redirección de paquetes para IPv4
+net.ipv4.ip_forward=1</code></pre>
+</section>
+<section  id="demo">
+<h2>Demo</h2>
+<p>Reiniciamos nuestra RPI y... si todo va bien, ¡deberíamos tenerlo funcionando! Recuerda tener previamente iniciada la
+red Wifi que dará Internet a tu RPI. Para comprobar que funcione correctamente, con un dispositivo móvil que hará de
+víctima, busca el nombre de red que has elegido y pon la contraseña.</p>
+<p>Es probable que el móvil diga que dicha red tiene conectividad limitada. Debe ignorarse el aviso. Esto es porque
+detecta que las conexiones HTTPS no están dando como respuesta un certificado válido. En el ordenador, el cual estará
+conectado a la misma red que ofrece Internet a tu RPI, deberás poner la IP de esta (con la dirección que tiene en la
+interfaz que da Internet) seguido del puerto &quot;9090&quot; en el navegador para ver las solicitudes:</p>
+<pre data-id="demo"><code data-trim data-noescape class="default">http://&lt;ip RPI&gt;:9090</code></pre>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../../_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="../../_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="../../_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

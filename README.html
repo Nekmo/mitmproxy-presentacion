@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>mitmproxy: ataques MitM con Python</title>
+    <link rel="stylesheet" type="text/css" href="_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/theme.css" />
+    <script src="_static/main.js"></script>
+    <link rel="prev" title="mitmproxy: ataques MitM con Python" href="index.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <a class="reference internal image-reference" href="https://raw.githubusercontent.com/Nekmo/mitmproxy-presentacion/master/logo.png"><img alt="https://raw.githubusercontent.com/Nekmo/mitmproxy-presentacion/master/logo.png" src="https://raw.githubusercontent.com/Nekmo/mitmproxy-presentacion/master/logo.png" style="width: 100%;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<a class="reference external image-reference" href="https://github.com/Nekmo/mitmproxy-presentacion/actions?query=workflow%3ABuild"><img alt="Latest CI build status" src="https://img.shields.io/github/actions/workflow/status/Nekmo/mitmproxy-presentacion/build.yml?style=flat-square&amp;maxAge=2592000&amp;branch=master" /></a>
+<section  id="mitmproxy-ataques-mitm-con-python">
+<h1>mitmproxy: ataques MitM con Python</h1>
+<p>Presentación para <a class="reference external" href="https://www.opensouthcode.org/conferences/opensouthcode2023">OpenSouthCode 2023</a> el día
+<em>9 de junio</em>. Puedes utilizar esta misma presentación, íntegra o con modificaciones para cualquiera de los usos
+descritos en la licencia MIT adjunta en este proyecto.</p>
+<p>La presentación está <a class="reference external" href="https://nekmo.github.io/mitmproxy-presentacion/">disponible online</a> ya compilada
+para su visualización.</p>
+<p>Para compilar desde el código fuente se requiere Python 3 instalado, estando probado sólo bajo Python 3.11. Se
+recomienda ejecutar los siguientes pasos en un
+<a class="reference external" href="https://nekmo.com/es/blog/python-virtualenvs-y-virtualenvwrapper/">virtualenv</a>:</p>
+<pre data-id="mitmproxy-ataques-mitm-con-python"><code data-trim data-noescape class="default"># Clonar proyecto
+git clone https://github.com/Nekmo/mitmproxy-presentacion.git
+cd mitmproxy-presentacion
+# Instalar dependencias
+pip install -r requirements.txt
+# Compilar ficheros de estilos
+sassc _static/theme.scss _static/theme.css
+# Compilar presentación
+make revealjs</code></pre>
+<p>Tras la compilación puede verse los ficheros resultantes en el directorio <code class="docutils literal notranslate"><span class="pre">_build</span></code>.</p>
+</section>
+<section  id="demo">
+<h2>Demo</h2>
+<p>Los ficheros de demostración se encuentran en el directorio
+<a class="reference external" href="https://github.com/Nekmo/mitmproxy-presentacion/tree/master/demos">demos</a>.</p>
+</section>
+<section  id="copyright">
+<h2>Copyright</h2>
+<p>Licencia MIT. Ver fichero <code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code>.</p>
+<p>Nekmo 2023.</p>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>mitmproxy: ataques MitM con Python</title>
+    <link rel="stylesheet" type="text/css" href="_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/theme.css" />
+    <script src="_static/main.js"></script>
+    <link rel="next" title="mitmproxy: ataques MitM con Python" href="README.html" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <div class="toctree-wrapper compound">
+</div>
+<section data-transition="zoom" id="intro">
+<h1><strong>mitmproxy:</strong> ataques MitM con Python</h1>
+<a class="reference internal image-reference" href="_images/mitmproxy_logo.svg"><img alt="_images/mitmproxy_logo.svg" src="_images/mitmproxy_logo.svg" width="200" /></a>
+<aside class="notes">Hola a todos.</aside></section>
+<section>
+<section data-transition="convex" id="id1">
+<h2>👋</h2>
+<aside class="notes">Seguramente a muchos os llame la atención todo esto de la seguridad informática...</aside></section>
+<section data-background-color="#030303">
+<a class="reference internal image-reference" href="_images/hacker.jpg"><img alt="_images/hacker.jpg" src="_images/hacker.jpg" style="width: 100%;" /></a>
+<aside class="notes">En plan, como los hackers con sus capuchas negras. Aunque aquí hace demasiado calor para ponernosla.</aside></section>
+<section data-transition="concave" id="sobre-mi">
+<h3>Sobre mí <strong>Nekmo</strong></h3>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><a class="reference internal image-reference" href="_images/cara.svg"><img alt="_images/cara.svg" src="_images/cara.svg" width="200px" /></a>
+<p><em>Programador Python</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">Pero antes dejadme que me presente. Soy Juan José, más conocido en redes como Nekmo, y llevo programando en
+Python más de media vida.</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/hispasec.png"><img alt="_images/hispasec.png" src="_images/hispasec.png" style="width: 100%;" /></a>
+<aside class="notes">Y todo esto de la seguridad no me es desconocido, gracias a que he trabajado casi 5 años en el sector, en una
+empresa malagueña llamada Hispasec.</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/mitmproxy_full.svg"><img alt="_images/mitmproxy_full.svg" src="_images/mitmproxy_full.svg" width="100%" /></a>
+<aside class="notes">Eso me ha permitido conocer herramientas como mitmproxy, utilizadas para realizar ataques mitm mediante un proxy.
+Pero antes de eso...</aside></section>
+<section  id="que-son">
+<h3>Qué son</h3>
+<ul class="simple">
+<li class="fragment"><p>¿Qué es un <strong>proxy</strong>?</p></li>
+<li class="fragment"><p>¿Y un ataque <strong>Man in the Middle</strong>?</p></li>
+</ul>
+<aside class="notes">¿Cuántos sabríais explicar qué es un proxy? ¿Y un ataque Man in the Middle? -- No os preocupéis, que vamos a verlos
+en detalle.</aside></section>
+</section>
+<section  id="que-son-los-proxies">
+<h2>¿Qué son los <strong>proxies</strong>?</h2>
+<aside class="notes">Lo primero, ¿qué son los proxies?</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/proxy.drawio.svg"><img alt="_images/proxy.drawio.svg" src="_images/proxy.drawio.svg" width="100%" /></a>
+<aside class="notes">Un servidor proxy es un dispositivo que hace de intermediario en las peticiones realizadas entre un cliente y un
+servidor.</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/world-proxies.svg"><img alt="_images/world-proxies.svg" src="_images/world-proxies.svg" width="80%" /></a>
+<aside class="notes">A muchos os sonarán porque se utilizan para saltarse restricciones regionales. Vamos, ver el Netflix de otro país.</aside></section>
+<section data-transition="fade">
+<a class="reference internal image-reference" href="_images/proxy2.drawio.svg"><img alt="_images/proxy2.drawio.svg" src="_images/proxy2.drawio.svg" width="100%" /></a>
+<aside class="notes">Así pues, el proxy toma una solicitud de un usuario...</aside></section>
+<section data-transition="fade">
+<a class="reference internal image-reference" href="_images/proxy3.drawio.svg"><img alt="_images/proxy3.drawio.svg" src="_images/proxy3.drawio.svg" width="100%" /></a>
+<aside class="notes">... se la envía al servidor destino...</aside></section>
+<section data-transition="fade">
+<a class="reference internal image-reference" href="_images/proxy4.drawio.svg"><img alt="_images/proxy4.drawio.svg" src="_images/proxy4.drawio.svg" width="100%" /></a>
+<aside class="notes">...éste le da la respuesta al proxy...</aside></section>
+<section data-transition="fade slide-out">
+<a class="reference internal image-reference" href="_images/proxy5.drawio.svg"><img alt="_images/proxy5.drawio.svg" src="_images/proxy5.drawio.svg" width="100%" /></a>
+<aside class="notes">...y se lo entrega al usuario.</aside></section>
+<section data-background-color="#000000" data-background-image="_static/thinking.gif">
+<aside class="notes">Y puede que estéis pensando... ¿No puede ese servidor leer la solicitud? ¿No podría alterarla...?</aside></section>
+<section data-background-color="#000000" data-background-image="_static/dicaprio.gif">
+<aside class="notes">Pues muy bien, eso que estáis pensando exactamente es un...</aside></section>
+<section>
+<section  id="ataques-man-in-the-middle-mitm">
+<h2>Ataques Man in the Middle <strong>(MitM)</strong></h2>
+<aside class="notes">ataque Man in the Middle.</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/mitm.drawio.svg"><img alt="_images/mitm.drawio.svg" src="_images/mitm.drawio.svg" width="100%" /></a>
+<aside class="notes">Un ataque man in the middle, traducido como ataque de intermedario, es aquel en que un agente externo, el atacante,
+se encuentra de por medio en la comunicación.</aside></section>
+<section  id="opciones-mitm">
+<h3>opciones mitm</h3>
+<ul class="simple">
+<li><p>👁️ Leer</p></li>
+<li><p>➕ Añadir</p></li>
+<li><p>✏️ Modificar</p></li>
+</ul>
+<aside class="notes">Y puede leer, añadir o modificar a voluntad. Los proxies son sólo una de las técnicas que tienen los atacantes para
+realizar un ataque MitM.</aside></section>
+<section >
+<a class="reference internal image-reference" href="_images/mitmproxy_full.svg"><img alt="_images/mitmproxy_full.svg" src="_images/mitmproxy_full.svg" width="100%" /></a>
+<aside class="notes">Y ahora, sabiendo ambos conceptos, vamos a ver mitmproxy.</aside></section>
+<section  id="version-consola">
+<h3>Versión <strong>consola</strong></h3>
+<a class="reference internal image-reference" href="_images/mitmproxy_cli.png"><img alt="_images/mitmproxy_cli.png" src="_images/mitmproxy_cli.png" style="width: 100%;" /></a>
+<aside class="notes">mitmproxy tiene una interfaz para ver y modificar las peticiones de nuestra víctima desde la consola. Lo que a todas
+las pelis les gusta, una terminal resultona para aparentar ser un &quot;hacker&quot;.</aside></section>
+<section  id="version-web">
+<h3>Versión <strong>web</strong></h3>
+<a class="reference internal image-reference" href="_images/mitmproxy_web.png"><img alt="_images/mitmproxy_web.png" src="_images/mitmproxy_web.png" style="width: 100%;" /></a>
+<aside class="notes">Además de una versión web muy resultona, pero que aún se encuentra en beta. Vamos, Como todo lo que yo desarrollo.</aside></section>
+<section  id="python-api">
+<h3><strong>Python</strong> API</h3>
+<pre data-id="python-api"><code data-trim data-noescape class="python" data-line-numbers="1-11|4-6|7-11|1-11"> from mitmproxy import http
+
+ def request(flow: http.HTTPFlow):
+     # redirect to different host
+     if flow.request.pretty_host == &quot;example.com&quot;:
+         flow.request.host = &quot;mitmproxy.org&quot;
+     # answer from proxy
+     elif flow.request.path.endswith(&quot;/brew&quot;):
+         flow.response = http.Response.make(
+             418, b&quot;I'm a teapot&quot;,
+         )</code></pre>
+<aside class="notes">Y finalmente una API para escribir en Python y realizar cambios, como modificar el servidor de destino o
+alterar la respuesta. En esta demo tenemos (1) un código que altera el host de destino en función del host solicitado,
+(2) y otro fragmento que, en función del path, altera la respuesta. (3) Diría algo más, pero la API es tan sencilla
+como veis.</aside></section>
+<section data-background-color="#000000" data-background-image="_static/demo1.gif" id="demo">
+<h3>Demo</h3>
+<aside class="notes">Pero dejadme que os lo enseñe. Si es que funciona la demo, claro.</aside></section>
+</section>
+<section>
+<section data-background-color="#8BB2BE" id="casos-de-uso">
+<h2>Casos de <strong>uso</strong></h2>
+<a class="reference internal image-reference" href="_images/cybersecurity.png"><img alt="_images/cybersecurity.png" src="_images/cybersecurity.png" style="width: 100%;" /></a>
+<aside class="notes">Vale, y ahora os preguntaréis algunos. ¿Para qué me sirve? Pues no sólo es útil para los malos.</aside></section>
+<section  id="sombrero-blanco">
+<h3>Sombrero <strong>blanco</strong></h3>
+<ul class="simple">
+<li class="fragment"><p><strong>Depuración</strong> de programas</p></li>
+<li class="fragment"><p>Análisis de <strong>malware</strong></p></li>
+<li class="fragment"><p><strong>Tests</strong> de integración</p></li>
+<li class="fragment"><p>... y más.</p></li>
+</ul>
+<aside class="notes">Los buenos, es decir, los sombreros blanco, además de los desarrolladores, pueden usarlo para varias cosas, como (leer puntos)</aside></section>
+<section data-background-color="#000000" data-background-image="_static/hacker.gif" id="y-los-malos">
+<h3>¡Y los malos!</h3>
+<aside class="notes">¡Y los malos!</aside></section>
+<section data-background-color="#363636" id="sombrero-negro">
+<h3>Sombrero <strong>negro</strong></h3>
+<ul class="simple">
+<li class="fragment"><p><strong>Espionaje</strong>.</p></li>
+<li class="fragment"><p>Robo de <strong>información</strong>.</p></li>
+<li class="fragment"><p><strong>Phishing</strong>.</p></li>
+<li class="fragment"><p>... y más.</p></li>
+</ul>
+<aside class="notes">Ellos, claro está, también pueden utilizarlo para hacer sus cosas de malos, como (leer puntos).</aside></section>
+</section>
+<section>
+<section data-background-color="#000000" data-background-image="_static/panic.gif" id="estoy-en-peligro">
+<h2>¿Estoy en peligro?</h2>
+<aside class="notes">Vale, puede esto os haya asustado un poco. Pero no os preocupéis. Contra los ataques Man in the Middle los buenos tenemos una solución.</aside></section>
+<section  id="ssl-tls">
+<h3>SSL/<strong>TLS</strong></h3>
+<a class="reference internal image-reference" href="_images/certificado-ssl.jpg"><img alt="_images/certificado-ssl.jpg" src="_images/certificado-ssl.jpg" style="width: 100%;" /></a>
+<aside class="notes">SSL/TLS. Por suerte, la mayoría del tráfico web actual está firmado y cifrado. Y esto significa que no pueden realizar un ataque impunemente.</aside></section>
+<section  id="aviso-del-navegador">
+<h3><strong>Aviso</strong> del navegador</h3>
+<a class="reference internal image-reference" href="_images/ssl-error.png"><img alt="_images/ssl-error.png" src="_images/ssl-error.png" style="width: 100%;" /></a>
+<aside class="notes">Si el tráfico está siendo interceptado y la web usa SSL/TLS, el navegador muestra una pantalla de peligro como esta. Tal vez alguna vez os haya salido porque el certificado no es válido.</aside></section>
+<section  id="que-es-el-certificado">
+<h3>¿Qué es el <strong>certificado</strong>?</h3>
+<a class="reference internal image-reference" href="_images/certificate.png"><img alt="_images/certificate.png" src="_images/certificate.png" style="width: 40%;" /></a>
+<aside class="notes">Sin entrar en detalles, el certificado, es lo que demuestra que el servidor destino es quien dice ser. Y sólo el servidor destino tiene la clave privada que lo demuestra.</aside></section>
+<section  id="certificado-autofirmado">
+<h3>Certificado <strong>autofirmado</strong></h3>
+<a class="reference internal image-reference" href="_images/padlock-broken.png"><img alt="_images/padlock-broken.png" src="_images/padlock-broken.png" style="width: 50%;" /></a>
+<aside class="notes">El certificado de mitmproxy, es un certificado autofirmado que valida cualquier servidor. Permite suplantar cualquier sitio.</aside></section>
+<section  id="sin-confianza">
+<h3>Sin <strong>confianza</strong></h3>
+<a class="reference internal image-reference" href="_images/no_handshake.png"><img alt="_images/no_handshake.png" src="_images/no_handshake.png" style="width: 50%;" /></a>
+<aside class="notes">Claro está, ese certificado no es de confianza. Y para que funcione requiere instalarse explícitamente en el equipo o navegador de la víctima. Ya no es tan sencillo para los malos...</aside></section>
+<section data-background-color="#000000" data-background-video="_static/demo2.mp4" data-background-video-loop="" id="id2">
+<h3>Demo</h3>
+<aside class="notes">Pero de nuevo, vamos a verlo con una demostración.</aside></section>
+</section>
+<section>
+<section  id="conclusiones-sobre-el-cifrado">
+<h2>Conclusiones sobre el <strong>cifrado</strong></h2>
+<ul class="simple">
+<li class="fragment"><p>mitmproxy <strong>puede funcionar</strong> con sitios <strong>con cifrado SSL/TLS</strong>.</p></li>
+<li class="fragment"><p>... Pero <strong>debe aceptarse</strong> el certificado inválido,</p></li>
+<li class="fragment"><p>... <strong>o instalarse</strong> el certificado autofirmado en la máquina.</p></li>
+</ul>
+<aside class="notes">Por resumir un poco... (LEER).</aside></section>
+<section  id="como-se-realiza-el-ataque-entonces">
+<h3>¿<strong>Cómo se realiza</strong> el ataque entonces?</h3>
+<ul class="simple">
+<li class="fragment"><p>Engañar a la víctima para que salte la <strong>pantalla advertencia</strong>.</p></li>
+<li class="fragment"><p>Engañarla para que <strong>instale el certificado autofirmado</strong>.</p></li>
+<li class="fragment"><p><strong>Tomar posesión</strong> del dispositivo e instalar el certificado.</p></li>
+</ul>
+<aside class="notes">¿Entonces qué prácticas puede realizar el atacante? Muchos ya lo habréis pensado tras estas conclusiones, pero en definitiva... (LEER)</aside></section>
+<section  id="pero-quedan-sitios-sin-ssl-tls">
+<h3>¿Pero quedan sitios sin <strong>SSL/TLS</strong>?</h3>
+<aside class="notes">Vale, y algunos pensaréis que esto dificulta mucho un ataque SSL/TLS. Pero muchas webs aún no lo implementan por defecto...</aside></section>
+<section  id="webs-sin-https">
+<h3>Webs sin HTTPS</h3>
+<a class="reference internal image-reference" href="_images/why_not_https.png"><img alt="_images/why_not_https.png" src="_images/why_not_https.png" style="width: 100%;" /></a>
+<p><strong>https://whynohttps.com/</strong></p>
+<aside class="notes">Aquí tenéis un listado de sitios inseguros, entre los que destacan algunos tan importantes como baidu, el Google chino. Sí. Creedlo. En la web indicada tenéis el listado.</aside></section>
+</section>
+<section>
+<section data-background-color="#000000" data-background-image="_static/coding.gif" id="ejemplos-de-codigo">
+<h2>Ejemplos de <strong>código</strong></h2>
+<aside class="notes">Pero bueno, he estado hablando mucho, ¡y apenas he enseñado código!</aside></section>
+<section data-transition="convex" id="caso-1">
+<h3>Caso <strong>1</strong></h3>
+<pre data-id="caso-1"><code data-trim data-noescape class="python" data-line-numbers="1-11|5|6|7-8|9-10|11"> from mitmproxy import http
+ from bs4 import BeautifulSoup
+
+
+ def response(flow: http.HTTPFlow):
+     if &quot;php&quot; in flow.request.query:
+         text = flow.response.text
+         soup = BeautifulSoup(text, &quot;html.parser&quot;)
+         for element in soup.find_all(re.compile(&quot;.+&quot;), text=True):
+             element.string = re.sub(r&quot;\w+&quot;, &quot;PHP&quot;, element.string)
+         flow.response.text = str(soup)</code></pre>
+<aside class="notes">Bueno, vamos a ver cómo funciona este ejemplo de código, el cual os sorprenderá por lo corto que es. (1) Lo primero
+estamos trabajando con la respuesta, por lo que usamos la función response. (2) Sólo aplicamos la transformación si
+en los parámetros GET de la petición se encuentra &quot;php&quot;. (3) Obtenemos la respuesta y la leemos con Beautifulsoup.
+(4) por cada elemento con texto, reemplazamos cada palabra por PHP. (5) y finalmente escribimos el contenido alterado
+en la respuesta.</aside></section>
+<section  id="caso-2">
+<h3>Caso <strong>2</strong></h3>
+<pre data-id="caso-2"><code data-trim data-noescape class="python" data-line-numbers="1-15|6|7-15|8|9-13|14|1-15"> import re
+ from mitmproxy import http
+ from bs4 import BeautifulSoup
+
+
+ def request(flow: http.HTTPFlow):
+     flow.response = http.Response.make(
+         200,  # (optional) status code
+         b'&lt;style&gt;'
+         b'h1 { animation: blinker 1s step-start infinite; color: red; font-size: 8em; text-align: center; }'
+         b'&#64;keyframes blinker { 50% { opacity: 0; } }'
+         b'&lt;/style&gt;'
+         b'&lt;h1&gt;VIVA PHP!!!1&lt;/h1&gt;',
+         {&quot;Content-Type&quot;: &quot;text/html&quot;},  # (optional) headers
+     )</code></pre>
+<aside class="notes">Este ejemplo es mucho más sencillo aunque sea más largo. (1) Lo aplicamos sólo para la petición, por eso usamos la
+función request. (2) Creamos una respuesta personalizada y la establecemos. (3) En esta respuesta ponemos como código
+200. (4) Ponemos este HTML como contenido. (5) definimos como cabecera Content-Type html.</aside></section>
+</section>
+<section>
+<section data-transition="fade" data-background-color="#000000" data-background-image="_static/demo3.gif" id="demo-interceptar-codigo-wifi">
+<h2><strong>Demo:</strong> interceptar código WiFi</h2>
+<aside class="notes">Y ahora, para terminar, vamos a ver un ejemplo en el que vosotros mismos podréis probar mitmproxy con vuestros móviles, usando vuestra conexión WiFi. Vamos a analizar vuestro tráfico HTTP de vuestro terminal.</aside></section>
+<section data-background-color="#030303" id="accede-a-la-demo">
+<h3>Accede a la <strong>demo</strong></h3>
+<p><strong>SSID: mitmdemo</strong></p>
+<aside class="notes">Para ello, este es el nombre de la red. La contraseña se la daré primero a una única víctima y luego abriré la demo
+a todos.</aside></section>
+<section  id="como-funciona">
+<h3>Cómo <strong>funciona</strong></h3>
+<a class="reference internal image-reference" href="_images/rpi1.drawio.png"><img alt="_images/rpi1.drawio.png" src="_images/rpi1.drawio.png" style="width: 100%;" /></a>
+<aside class="notes">Vale, ahora os preguntaréis cómo funciona. Para ello tenemos este diagrama que (leer). El asterisco que podéis ver
+en raspberry PI 3, es porque ahora explicaremos en detalle cómo funciona por dentro.</aside></section>
+<section data-transition="convex" id="como-funciona-rpi">
+<h3>Cómo funciona RPI</h3>
+<a class="reference internal image-reference" href="_images/rpi2.drawio.png"><img alt="_images/rpi2.drawio.png" src="_images/rpi2.drawio.png" style="width: 100%;" /></a>
+<aside class="notes">Dentro de la Raspberry PI 3 tenemos las siguientes partes (leer).</aside></section>
+<section  id="componentes-clave">
+<h3>Componentes <strong>clave</strong></h3>
+<ul class="simple">
+<li class="fragment"><p><strong>dhcpcd:</strong> cliente DHCP del adaptador Wifi para Internet.</p></li>
+<li class="fragment"><p><strong>isc-dhcp-server:</strong> servidor DHCP del adaptador Wifi para la víctima.</p></li>
+<li class="fragment"><p><strong>hostapd:</strong> permite crear la red Access Point para víctimas.</p></li>
+<li class="fragment"><p><strong>iptables:</strong> enrutamiento entre el adaptador wifi y mitmproxy.</p></li>
+<li class="fragment"><p><strong>mitmproxy:</strong> escucha de las peticiones de la víctima.</p></li>
+</ul>
+<aside class="notes">Vale, como sé que son muchas cosas, resumiré los componentes clave utilizados. Tenemos... (leer).</aside></section>
+</section>
+<section data-transition="fade" id="codigo-demos">
+<h2>Código <strong>demos</strong></h2>
+<a class="reference internal image-reference" href="_images/demo_codes.png"><img alt="_images/demo_codes.png" src="_images/demo_codes.png" style="width: 100%;" /></a>
+<aside class="notes">Si os interesa montar también vosotros una Raspberry PI como esta o cualquiera de las demos, tenéis el código e
+instrucciones en la presentación de Github.</aside></section>
+<section>
+<section  id="muchas-gracias">
+<h2>¡Muchas <strong>gracias</strong>!</h2>
+<p class="fragment"><strong>Referencias</strong></p>
+<ul class="simple">
+<li class="fragment"><p><a class="reference external" href="https://mitmproxy.org/">sitio web mitmproxy.org</a>.</p></li>
+<li class="fragment"><p><a class="reference external" href="https://docs.mitmproxy.org/stable/addons-examples/">ejemplos de código mitmproxy.org</a>.</p></li>
+<li class="fragment"><p><a class="reference external" href="https://www.dinofizzotti.com/blog/2022-04-24-running-a-man-in-the-middle-proxy-on-a-raspberry-pi-4/">blog dinofizzotti.com (demo RPI)</a>.</p></li>
+</ul>
+<aside class="notes">Y hasta aquí la presentación. Os agradezco a todos por venir, y aquí os dejo algunas referencias utilizadas en esta presentación.</aside></section>
+<section data-transition="zoom" id="y-la-presentacion">
+<h3>¿Y la <strong>presentación</strong>?</h3>
+<p><a class="reference external" href="https://github.com/Nekmo/mitmproxy-presentacion">github:Nekmo/mitmproxy-presentacion</a></p>
+<aside class="notes">Además de la presentación, por si queréis volver a verla.</aside></section>
+<section data-background-color="#ffffff" data-background-size="contain" data-background-image="_static/qr.png">
+<aside class="notes">Además aquí la tenéis en forma de QR por si os es más cómodo, para no tener ni que escribir.</aside></section>
+<section  id="contactar">
+<h3><strong>Contactar</strong></h3>
+<ul class="simple">
+<li><p><strong>Sitio web:</strong> <a class="reference external" href="https://nekmo.com">nekmo.com</a></p></li>
+<li><p><strong>Email:</strong> <a class="reference external" href="mailto:contacto&#37;&#52;&#48;nekmo&#46;com">contacto<span>&#64;</span>nekmo<span>&#46;</span>com</a></p></li>
+<li><p><strong>Twitter:</strong> <a class="reference external" href="https://twitter.com/nekmocom">&#64;nekmocom</a></p></li>
+<li><p><strong>Telegram:</strong> <a class="reference external" href="https://t.me/nekmo">&#64;nekmo</a></p></li>
+<li><p><strong>Jabber:</strong> <a class="reference external" href="xmpp://nekmo&#64;nekmo.org">nekmo&#64;nekmo.org</a></p></li>
+</ul>
+<aside class="notes">Finalmente, también tenéis mi sitio web (ejem ejem spam) en esta diapositiva. Además de mi email. Y Twitter.
+Aunque apenas escriba en Twitter. Me podéis escribir ya sea por preguntas sobre Python, seguridad informática,
+contrataciones o lo que necesitéis. Mi correo está abierto. Pero ante todo, ¡muchas gracias a todos por venir!
+¿Alguna pregunta?</aside></section>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

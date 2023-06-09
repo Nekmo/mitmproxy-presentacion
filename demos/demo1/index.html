@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>Demo 1</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="../../_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme.css" />
+    <script src="../../_static/main.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <section  id="demo-1">
+<h1>Demo 1</h1>
+<p>En esta demo se muestra el funcionamiento de mitmproxy con una webs HTTP (sin cifrado).</p>
+</section>
+<section  id="instalacion">
+<h2>Instalación</h2>
+<p>En la consola:</p>
+<pre data-id="instalacion"><code data-trim data-noescape class="bash">$ pip install mitmproxy</code></pre>
+</section>
+<section  id="configuracion">
+<h2>Configuración</h2>
+<p>En el navegador establecemos la configuración del proxy. En el caso de Firefox: <em>Ajustes -&gt; configuración de red -&gt;
+configuración</em> y después <em>Configuración manual del proxy</em>. En HTTP ponemos <em>localhost</em> con puerto <em>8080</em>. Marcamos la
+opción de utilizar también para HTTPS.</p>
+</section>
+<section  id="iniciar">
+<h2>Iniciar</h2>
+<p>Para ejecutar mitmproxy en el terminal:</p>
+<pre data-id="iniciar"><code data-trim data-noescape class="bash">$ mitmproxy</code></pre>
+</section>
+<section  id="ejemplos-de-sitios-http">
+<h2>Ejemplos de sitios HTTP</h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.example.com/">http://www.example.com/</a></p></li>
+<li><p><a class="reference external" href="http://eu.httpbin.org/">http://eu.httpbin.org/</a></p></li>
+</ul>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../../_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="../../_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="../../_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

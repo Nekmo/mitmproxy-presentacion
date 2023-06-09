@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="206.81969"
+   height="202.69264"
+   version="1.1"
+   id="svg46"
+   sodipodi:docname="mitmproxy_logo.svg"
+   inkscape:export-filename="mitmproxy_logo.png"
+   inkscape:export-xdpi="118.82816"
+   inkscape:export-ydpi="118.82816"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview48"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.5165877"
+     inkscape:cx="478.04688"
+     inkscape:cy="242.32031"
+     inkscape:window-width="2560"
+     inkscape:window-height="1361"
+     inkscape:window-x="2560"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg46" />
+  <path
+     d="m 117.40984,101.34632 c 0,7.732 -6.268,14 -14,14 -7.731999,0 -13.999999,-6.268 -13.999999,-14 0,-7.731999 6.268,-13.999999 13.999999,-13.999999 7.732,0 14,6.268 14,13.999999 z"
+     fill="#f15a29"
+     id="path2" />
+  <g
+     fill="none"
+     id="g12"
+     transform="translate(-16.590159,-18.653679)">
+    <path
+       d="m 139.5,120 c 0,10.77 -8.73,19.5 -19.5,19.5 -10.77,0 -19.5,-8.73 -19.5,-19.5 0,-10.77 8.73,-19.5 19.5,-19.5 10.77,0 19.5,8.73 19.5,19.5 z"
+       stroke="#f7941e"
+       stroke-width="4"
+       id="path4" />
+    <g
+       stroke="#000000"
+       stroke-width="10"
+       id="g10">
+      <path
+         d="m 150,120 c 0,16.569 -13.431,30 -30,30 -16.569,0 -30,-13.431 -30,-30 0,-16.569 13.431,-30 30,-30 16.569,0 30,13.431 30,30 z"
+         id="path6" />
+      <path
+         d="M 187,48 C 153.273,18.838 104.314,15.527 66.967,39.883 29.62,64.239 12.911,110.378 26,153 h 38 a 65,65 0 0 0 111,4 M 20,120 h 70"
+         id="path8" />
+    </g>
+  </g>
+  <path
+     d="m 167.40984,130.34632 a 6,6 0 1 1 -12,0 6,6 0 1 1 12,0 z"
+     fill="#f7941e"
+     id="path14" />
+  <use
+     xlink:href="#B"
+     fill="none"
+     stroke="#000000"
+     stroke-width="3.2"
+     id="use16"
+     transform="translate(-16.590159,-18.653679)" />
+  <path
+     d="m 182.40984,36.346321 a 6,6 0 1 1 -12,0 6,6 0 1 1 12,0 z"
+     fill="#f7941e"
+     id="path18" />
+  <g
+     fill="none"
+     stroke="#000000"
+     id="g24"
+     transform="translate(-16.590159,-18.653679)">
+    <use
+       xlink:href="#B"
+       x="15"
+       y="-94"
+       stroke-width="3.2"
+       id="use20" />
+    <path
+       d="m 53,192 c 33.727,29.162 82.686,32.473 120.033,8.117 C 210.38,175.761 227.089,129.622 214,87 H 176 A 65,65 0 0 0 65,83 m 155,37 h -70"
+       stroke-width="10"
+       id="path22" />
+  </g>
+  <path
+     d="m 51.409841,72.346321 a 6,6 0 1 1 -12,0 6,6 0 1 1 12,0 z"
+     fill="#f7941e"
+     id="path26" />
+  <use
+     xlink:href="#B"
+     x="-116"
+     y="-58"
+     fill="none"
+     stroke="#000000"
+     stroke-width="3.2"
+     id="use28"
+     transform="translate(-16.590159,-18.653679)" />
+  <path
+     d="m 36.409841,166.34632 a 6,6 0 1 1 -12,0 6,6 0 1 1 12,0 z"
+     fill="#f7941e"
+     id="path30" />
+  <use
+     xlink:href="#B"
+     x="-131"
+     y="36"
+     fill="none"
+     stroke="#000000"
+     stroke-width="3.2"
+     id="use32"
+     transform="translate(-16.590159,-18.653679)" />
+  <defs
+     id="defs44">
+    <path
+       id="B"
+       d="m 188,149 c 0,5.523 -4.477,10 -10,10 -5.523,0 -10,-4.477 -10,-10 0,-5.523 4.477,-10 10,-10 5.523,0 10,4.477 10,10 z" />
+    <path
+       id="C"
+       d="m 401.84,108.96 c 0,-13.6 -4.8,-16.96 -17.6,-16.96 h -29.76 c -7.04,0 -11.04,1.28 -13.6,6.56 C 338.32,93.28 334.32,92 327.28,92 h -30.24 c -12.8,0 -17.6,3.36 -17.6,16.96 V 180 h 10.88 v -70.72 c 0,-5.12 1.44,-7.2 7.36,-7.2 h 30.56 c 5.92,0 7.36,2.08 7.36,7.2 V 180 h 10.72 v -70.72 c 0,-5.12 1.44,-7.2 7.36,-7.2 h 30.08 c 5.92,0 7.36,2.08 7.36,7.2 V 180 h 10.72 z" />
+  </defs>
+</svg>

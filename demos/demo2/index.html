@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>Demo2</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="../../_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme.css" />
+    <script src="../../_static/main.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <section  id="demo2">
+<h1>Demo2</h1>
+<p>Esta demo continúa la demo1. Ver primero los pasos de demo1. El objetivo es comprobar cómo al solicitar una web HTTPS
+se muestra la pantalla de aviso de certificado inválido y cómo se resuelve. Pero esta vez iniciamos mitmproxy con el
+siguiente comando:</p>
+<pre data-id="demo2"><code data-trim data-noescape class="bash">mitmweb</code></pre>
+<p>Esto iniciará mitmproxy en modo web, disponible en <a class="reference external" href="http://127.0.0.1:8081">http://127.0.0.1:8081</a></p>
+</section>
+<section  id="caso-1">
+<h2>Caso 1</h2>
+<p>Al acceder a <a class="reference external" href="https://nekmo.com/es/">https://nekmo.com/es/</a> se muestra la pantalla de aviso. Pero puede saltarse aceptando el certificado
+erróneo. Podemos verlo después a través del modo web las peticiones realizadas.</p>
+</section>
+<section  id="caso-2">
+<h2>Caso 2</h2>
+<p>Para saltarnos la restricción de forma global, debemos instalar el certificado. Para ello vamos a <em>ajustes -&gt;
+privacidad y seguridad -&gt; ver certificados...</em> y en la modal vamos a <em>&quot;autoridades&quot;</em>, donde pulsamos en el botón de
+<em>importar</em> para elegir en la carpeta <code class="docutils literal notranslate"><span class="pre">~/.mitmproxy</span></code> el certificado <code class="docutils literal notranslate"><span class="pre">mitmproxy-ca-cert.pem</span></code>. Aceptamos todo y luego
+cerramos la modal. Si accedemos a cualquier otra web podremos acceder, incluido <a class="reference external" href="https://google.es">https://google.es</a></p>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../../_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="../../_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="../../_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>

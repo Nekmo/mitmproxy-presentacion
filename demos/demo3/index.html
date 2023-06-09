@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <title>Demo3</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/revealjs4/dist/reveal.css" />
+    <link rel="stylesheet" href="../../_static/revealjs4/dist/theme/.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme.css" />
+    <script src="../../_static/main.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  </head><body>
+    <div class="reveal">
+        <div class="slides" role="main">
+            <section  id="demo3">
+<h1>Demo3</h1>
+<p>En esta demo se muestran ejemplos con código. Para ello ejecutar cada uno de los casos.</p>
+</section>
+<section  id="caso-1">
+<h2>Caso 1</h2>
+<p>En este caso se muestra cómo en función de un parámetro de la solicitud alteramos el contenido de la página.</p>
+<pre data-id="caso-1"><code data-trim data-noescape class="default">mitmproxy --anticache -s ./case1.py</code></pre>
+<p>En este ejemplo se modifica cada palabra por &quot;PHP&quot;, intentando no romper el diseño de la página.</p>
+</section>
+<section  id="caso-2">
+<h2>Caso 2</h2>
+<p>Este otro caso de ejemplo altera la respuesta sin llegar a realizarse solicitud al servidor de destino.</p>
+<pre data-id="caso-2"><code data-trim data-noescape class="default">mitmproxy -s ./case2.py</code></pre>
+</section>
+
+        </div>
+    </div>
+    
+    <script src="../../_static/revealjs4/dist/reveal.js"></script>
+    
+    
+      <script src="../../_static/revealjs4/plugin/notes/notes.js"></script>
+      <script src="../../_static/revealjs4/plugin/highlight/highlight.js"></script>
+      
+    
+    <script>
+        var revealjsConfig = new Object();
+        Object.assign(revealjsConfig, 
+    {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        margin: 0.2,        
+        transition: "slide",
+    }
+);
+        
+        
+        
+          revealjsConfig.plugins = [
+            RevealNotes,RevealHighlight,
+          ];
+        
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize(revealjsConfig);
+    </script>
+
+  </body>
+</html>
