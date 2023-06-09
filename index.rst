@@ -531,7 +531,7 @@ Ejemplos de **código**
 
 .. revealjs-notes::
 
-  Pero bueno, hemos estado hablando mucho, ¡y enseñando poco código! Vamos a ver los códigos usados en el ejemplo anterior.
+  Pero bueno, he estado hablando mucho, ¡y apenas he enseñado código!
 
 Caso **1**
 ----------
@@ -540,7 +540,7 @@ Caso **1**
     :data-transition: convex
 
 .. revealjs-code-block:: python
-   :data-line-numbers: 1-11|5|6|7-9|9-10
+   :data-line-numbers: 1-11|5|6|7-8|9-10
 
     from mitmproxy import http
     from bs4 import BeautifulSoup
